@@ -173,18 +173,14 @@ public class CEventos implements ActionListener, MouseListener {
 			// Necesario para que eclipse no la detecte como una fecha y añada HH:MM:SS al final del campo
 			//vEventos.tfFecha.setText(eventos.get(fila).getFecha().substring(0, 10));
 			
-			String fecha = vEventos.dateChooser.getJCalendar().getYearChooser().getYear() + "-" +
-                          (vEventos.dateChooser.getJCalendar().getMonthChooser().getMonth()+1) + "-" +
-                           vEventos.dateChooser.getJCalendar().getDayChooser().getDay();
-			Date date = null;
+			// Este try-catch hace la misma funcion que las lineas de arriba
 			try {
-				date = new SimpleDateFormat("yyyy-MM-dd").parse(fecha);
+				Date date = new SimpleDateFormat("yyyy-MM-dd").parse(eventos.get(fila).getFecha());
+				vEventos.dateChooser.setDate(date);
 			}
 			catch (ParseException ex) {
 				ex.printStackTrace();
 			}
-
-			vEventos.dateChooser.setDate(date);
 		}
 	}
 
