@@ -3,16 +3,17 @@ package Controlador;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import Entidades.Eventos;
 import OracleAccess.OracleAccess;
 import Vista.VEventos;
 
-public class CEventos implements ActionListener {
+public class CEventos implements ActionListener, MouseListener {
 	VEventos vEventos;
 	GEventos gEventos;
 	OracleAccess bbdd;
@@ -41,7 +42,14 @@ public class CEventos implements ActionListener {
 		Object obj = e.getSource();
 		
 		if (obj == vEventos.btnInsertar) {
-			añadirEvento();
+			if (vEventos.btnInsertar.getText().equals("Insertar")) {
+				vEventos.tfCodigo.setText(String.valueOf(Integer.parseInt(eventos.get(eventos.size()-1).getCod_ev())+1));
+				vEventos.btnInsertar.setText("Guardar");
+			}
+			else if (vEventos.btnInsertar.getText().equals("Guardar")) {
+				añadirEvento();
+				vEventos.btnInsertar.setText("Insertar");
+			}
 		}
 	}
 
@@ -64,6 +72,31 @@ public class CEventos implements ActionListener {
 			
 			gEventos.añadirEvento(e);
 		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		
 	}
 
 }
