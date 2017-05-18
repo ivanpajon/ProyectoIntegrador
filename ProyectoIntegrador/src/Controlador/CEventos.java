@@ -5,8 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -68,13 +72,17 @@ public class CEventos implements ActionListener, MouseListener {
 	}
 	
 	private void modificarEvento() {
-		Eventos e = new Eventos(vEventos.tfCodigo.getText(), vEventos.tfFecha.getText(), vEventos.tfMentor.getText(), vEventos.tfCategoria.getText(), vEventos.tfDuracion.getText(), vEventos.tfLugar.getText());
+		String fecha = vEventos.dateChooser.getJCalendar().getYearChooser().getYear() + "-" +
+		              (vEventos.dateChooser.getJCalendar().getMonthChooser().getMonth()+1) + "-" +
+		               vEventos.dateChooser.getJCalendar().getDayChooser().getDay();
+		
+		Eventos e = new Eventos(vEventos.tfCodigo.getText(), fecha, vEventos.tfMentor.getText(), vEventos.tfCategoria.getText(), vEventos.tfDuracion.getText(), vEventos.tfLugar.getText());
 		gEventos.modificarEvento(vEventos, e);
 		
 		DefaultTableModel tabla = (DefaultTableModel) vEventos.table.getModel();
 		int fila = vEventos.table.getSelectedRow();
 		tabla.setValueAt(e.getCod_ev(), fila, 0);
-		tabla.setValueAt(e.getFecha(), fila, 1);
+		tabla.setValueAt(fecha, fila, 1);
 		tabla.setValueAt(e.getMentor(), fila, 2);
 		tabla.setValueAt(e.getCategoria(), fila, 3);
 		tabla.setValueAt(e.getDuracion(), fila, 4);
@@ -110,18 +118,22 @@ public class CEventos implements ActionListener, MouseListener {
 	}
 
 	private void añadirEvento() {
+		String fecha = vEventos.dateChooser.getJCalendar().getYearChooser().getYear() + "-" +
+                      (vEventos.dateChooser.getJCalendar().getMonthChooser().getMonth()+1) + "-" +
+                       vEventos.dateChooser.getJCalendar().getDayChooser().getDay();
+		
 		if (vEventos.table.getRowCount() >= 0) {
 			vEventos.btnBorrar.setEnabled(true);
 			vEventos.btnModificar.setEnabled(true);
 		}
-		if (this.vEventos.tfCodigo.getText().equals("") || this.vEventos.tfFecha.getText().equals("") || this.vEventos.tfMentor.getText().equals("") || this.vEventos.tfCategoria.getText().equals("") || this.vEventos.tfDuracion.getText().equals("") || this.vEventos.tfLugar.getText().equals("")) {
+		if (this.vEventos.tfCodigo.getText().equals("") || fecha.equals("") || this.vEventos.tfMentor.getText().equals("") || this.vEventos.tfCategoria.getText().equals("") || this.vEventos.tfDuracion.getText().equals("") || this.vEventos.tfLugar.getText().equals("")) {
 			vEventos.lblError.setForeground(Color.RED);
 			vEventos.lblError.setText("Rellene todos los campos por favor");
 			//JOptionPane.showMessageDialog(null, "Rellene todos los campos por favor");
 			limpiar();
 		}
 		else {
-			Eventos e = new Eventos(vEventos.tfCodigo.getText(), vEventos.tfFecha.getText(), vEventos.tfMentor.getText(), vEventos.tfCategoria.getText(), vEventos.tfDuracion.getText(), vEventos.tfLugar.getText());
+			Eventos e = new Eventos(vEventos.tfCodigo.getText(), fecha, vEventos.tfMentor.getText(), vEventos.tfCategoria.getText(), vEventos.tfDuracion.getText(), vEventos.tfLugar.getText());
 			eventos.add(e);
 			
 			// Añadir el evento a la tabla
@@ -138,7 +150,7 @@ public class CEventos implements ActionListener, MouseListener {
 	
 	public void limpiar() {
 		vEventos.tfCodigo.setText("");
-		vEventos.tfFecha.setText("");
+		vEventos.dateChooser.setDateFormatString("");
 		vEventos.tfMentor.setText("");
 		vEventos.tfCategoria.setText("");
 		vEventos.tfDuracion.setText("");
@@ -153,14 +165,26 @@ public class CEventos implements ActionListener, MouseListener {
 			int fila = vEventos.table.rowAtPoint(e.getPoint());
 			
 			vEventos.tfCodigo.setText(eventos.get(fila).getCod_ev());
-			vEventos.tfFecha.setText(eventos.get(fila).getFecha());
 			vEventos.tfMentor.setText(eventos.get(fila).getMentor());
 			vEventos.tfCategoria.setText(eventos.get(fila).getCategoria());
 			vEventos.tfDuracion.setText(eventos.get(fila).getDuracion());
 			vEventos.tfLugar.setText(eventos.get(fila).getLugar());
 			
 			// Necesario para que eclipse no la detecte como una fecha y añada HH:MM:SS al final del campo
-			vEventos.tfFecha.setText(eventos.get(fila).getFecha().substring(0, 10));
+			//vEventos.tfFecha.setText(eventos.get(fila).getFecha().substring(0, 10));
+			
+			String fecha = vEventos.dateChooser.getJCalendar().getYearChooser().getYear() + "-" +
+                          (vEventos.dateChooser.getJCalendar().getMonthChooser().getMonth()+1) + "-" +
+                           vEventos.dateChooser.getJCalendar().getDayChooser().getDay();
+			Date date = null;
+			try {
+				date = new SimpleDateFormat("yyyy-MM-dd").parse(fecha);
+			}
+			catch (ParseException ex) {
+				ex.printStackTrace();
+			}
+
+			vEventos.dateChooser.setDate(date);
 		}
 	}
 

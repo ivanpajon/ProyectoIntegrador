@@ -74,22 +74,21 @@ private Connection cn;
 	
 	public boolean modificarEvento(VEventos vEventos, Eventos e) {
 		Statement st;
+		String fecha = vEventos.dateChooser.getJCalendar().getYearChooser().getYear() + "-" +
+			          (vEventos.dateChooser.getJCalendar().getMonthChooser().getMonth()+1) + "-" +
+			           vEventos.dateChooser.getJCalendar().getDayChooser().getDay();
 		try {
 			st = cn.createStatement();
-			String update = "UPDATE EVENTOS SET FECHA=TO_DATE('" + e.getFecha() + "', 'YY-MM-DD')" +
+			String update = "UPDATE EVENTOS SET FECHA=TO_DATE('" + fecha + "', 'YY-MM-DD')" +
 					                        ", MENTOR='" + e.getMentor() +
 					                        "', CATEGORIA='" + e.getCategoria() +
 					                        "', DURACION='" + e.getDuracion() +
 					                        "', LUGAR='" + e.getLugar() +
 					                        "' WHERE COD_EV='" + e.getCod_ev() + "'";
 			System.out.println(update);
-			
-			String fecha = vEventos.dateChooser.getJCalendar().getYearChooser().getYear() + "-" +
-					       (vEventos.dateChooser.getJCalendar().getMonthChooser().getMonth()+1) + "-" +
-					       vEventos.dateChooser.getJCalendar().getDayChooser().getDay();
 			System.out.println(fecha);
 			
-			//st.executeUpdate(update);
+			st.executeUpdate(update);
 			st.close();
 			return true;
 		}

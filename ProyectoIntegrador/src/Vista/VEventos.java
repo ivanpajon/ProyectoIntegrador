@@ -21,7 +21,6 @@ public class VEventos extends JFrame {
 	public JPanel contentPane;
 	public JTable table;
 	public JTextField tfCodigo;
-	public JTextField tfFecha;
 	public JTextField tfMentor;
 	public JTextField tfCategoria;
 	public JTextField tfDuracion;
@@ -86,11 +85,6 @@ public class VEventos extends JFrame {
 		contentPane.add(tfCodigo);
 		tfCodigo.setColumns(10);
 		
-		tfFecha = new JTextField();
-		tfFecha.setBounds(123, 52, 167, 25);
-		contentPane.add(tfFecha);
-		tfFecha.setColumns(10);
-		
 		tfMentor = new JTextField();
 		tfMentor.setBounds(123, 91, 167, 25);
 		contentPane.add(tfMentor);
@@ -129,12 +123,12 @@ public class VEventos extends JFrame {
 		
 		lblError = new JLabel("");
 		lblError.setHorizontalAlignment(SwingConstants.CENTER);
-		lblError.setBounds(0, 265, 434, 18);
+		lblError.setBounds(0, 264, 434, 18);
 		contentPane.add(lblError);
 		
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("YYYY/MM/dd");
-		dateChooser.setBounds(16, 263, 95, 20);
+		dateChooser.setBounds(121, 56, 169, 20);
 		contentPane.add(dateChooser);
 	}
 	
