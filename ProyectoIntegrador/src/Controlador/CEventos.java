@@ -33,7 +33,7 @@ public class CEventos implements ActionListener, MouseListener {
 	private void cargarEventos() {
 		for (Eventos e : eventos) {
 			DefaultTableModel tabla = (DefaultTableModel) vEventos.table.getModel();
-			tabla.addRow(new Object[] {e.getCod_ev(), e.getFecha(), e.getMentor(), e.getCategoria(), e.getDuracion(), e.getLugar()});
+			tabla.addRow(new Object[] {e.getCod_ev(), e.getFecha().substring(0, e.getFecha().indexOf(' ')), e.getMentor(), e.getCategoria(), e.getDuracion(), e.getLugar()});
 		}
 	}
 
@@ -54,6 +54,15 @@ public class CEventos implements ActionListener, MouseListener {
 		else if (obj == vEventos.btnBorrar) {
 			eliminarEvento();
 		}
+		else if (obj == vEventos.btnModificar) {
+			modificarEvento();
+		}
+	}
+
+	private void modificarEvento() {
+		Eventos e = new Eventos(vEventos.tfCodigo.getText(), vEventos.tfFecha.getText(), vEventos.tfMentor.getText(), vEventos.tfCategoria.getText(), vEventos.tfDuracion.getText(), vEventos.tfLugar.getText());
+		
+		gEventos.modificarEvento(e);
 	}
 
 	private void eliminarEvento() {
@@ -124,6 +133,9 @@ public class CEventos implements ActionListener, MouseListener {
 		vEventos.tfCategoria.setText(eventos.get(fila).getCategoria());
 		vEventos.tfDuracion.setText(eventos.get(fila).getDuracion());
 		vEventos.tfLugar.setText(eventos.get(fila).getLugar());
+		
+		// Necesario para que eclipse no la detecte como una fecha y añada HH:MM:SS al final del campo
+		vEventos.tfFecha.setText(eventos.get(fila).getFecha().substring(0, vEventos.tfFecha.getText().indexOf(' ')));
 	}
 
 	@Override

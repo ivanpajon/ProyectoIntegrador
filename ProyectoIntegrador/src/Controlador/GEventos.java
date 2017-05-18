@@ -49,7 +49,7 @@ private Connection cn;
 			st.close();
 		}
 		catch(Exception ex) {
-			System.out.println("Error añadiendo evento - " + ex);
+			System.out.println("Error añadiendo el evento - " + ex);
 		}
 	}
 	
@@ -70,20 +70,25 @@ private Connection cn;
 		}
 	}
 	
-	/*public boolean modificarDep(Departamento d) {
+	public boolean modificarEvento(Eventos e) {
 		Statement st;
 		try {
 			st = cn.createStatement();
-			String update = "UPDATE DEPT SET DNAME='" + d.getNombre() + "', LOC='" + d.getCiudad() + "' WHERE DEPTNO='" + d.getCod() + "'";
-			//System.out.println(update);
+			String update = "UPDATE EVENTOS SET FECHA=TO_DATE('" + e.getFecha() + "', 'YY-MM-DD')" +
+					                        ", MENTOR='" + e.getMentor() +
+					                        "', CATEGORIA='" + e.getCategoria() +
+					                        "', DURACION='" + e.getDuracion() +
+					                        "', LUGAR='" + e.getLugar() +
+					                        "' WHERE COD_EV='" + e.getCod_ev() + "'";
+			System.out.println(update);
 			
 			st.executeUpdate(update);
 			st.close();
 			return true;
 		}
-		catch(Exception e) {
-			System.out.println("Error - " + e.getMessage());
+		catch(Exception ex) {
+			System.out.println("Error modificando el evento - " + ex);
 			return false;
 		}
-	}*/
+	}
 }
