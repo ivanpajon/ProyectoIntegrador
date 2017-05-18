@@ -13,31 +13,19 @@ import java.awt.event.ActionEvent;
 
 public class VInicio extends JFrame {
 
-	protected JPanel contentPane;
-	protected JButton btnEventos;
-	protected JButton btnProveedor;
-	protected JButton btnProyectos;
-	protected JButton btnUsuarios;
-	protected JButton btnUsuariosEventos;
-	protected JButton btnPedidos;
-	protected JButton btnMaterial;
-	protected JButton btnMaquina;
+	public JPanel contentPane;
+	public JButton btnEventos;
+	public JButton btnProveedor;
+	public JButton btnProyectos;
+	public JButton btnUsuarios;
+	public JButton btnUsuariosEventos;
+	public JButton btnPedidos;
+	public JButton btnMaterial;
+	public JButton btnMaquina;
 	
-	public VInicio() {
-		/*try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-				//System.out.println(info.getName());
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-				}
-			}
-		}
-		catch (Exception e) {
-			System.out.println("Error al aplicar estilo de ventana - " + e);
-		}*/
-		
+	public VInicio() {		
 		try {
-			UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
+			//UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
 		} catch (Exception e) {
 			System.out.println("Error al aplicar estilo de ventana");
 		}
@@ -51,10 +39,6 @@ public class VInicio extends JFrame {
 		contentPane.setLayout(null);
 		
 		btnEventos = new JButton("Eventos");
-		btnEventos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		btnEventos.setBounds(30, 13, 150, 40);
 		contentPane.add(btnEventos);
 		
