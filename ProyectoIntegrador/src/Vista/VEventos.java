@@ -128,7 +128,7 @@ public class VEventos extends JFrame {
 		
 		lblLblerror = new JLabel("");
 		lblLblerror.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLblerror.setBounds(16, 275, 432, 18);
+		lblLblerror.setBounds(0, 265, 434, 18);
 		contentPane.add(lblLblerror);
 	}
 	

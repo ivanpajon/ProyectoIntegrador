@@ -1,7 +1,7 @@
 package Vista;
 
-import Controlador.CInicio;
-import OracleAccess.OracleAccess;
+import Controlador.*;
+import OracleAccess.*;
 
 public class Principal {
 

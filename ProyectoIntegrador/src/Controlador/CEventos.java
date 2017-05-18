@@ -62,6 +62,7 @@ public class CEventos implements ActionListener, MouseListener {
 			vEventos.lblLblerror.setForeground(Color.RED);
 			vEventos.lblLblerror.setText("Rellene todos los campos por favor");
 			//JOptionPane.showMessageDialog(null, "Rellene todos los campos por favor");
+			limpiar();
 		}
 		else {
 			Eventos e = new Eventos(vEventos.tfCodigo.getText(), vEventos.tfFecha.getText(), vEventos.tfMentor.getText(), vEventos.tfCategoria.getText(), vEventos.tfDuracion.getText(), vEventos.tfLugar.getText());
@@ -71,7 +72,17 @@ public class CEventos implements ActionListener, MouseListener {
 			tabla.addRow(new Object[] {e.getCod_ev(), e.getFecha(), e.getMentor(), e.getCategoria(), e.getDuracion(), e.getLugar()});
 			
 			gEventos.añadirEvento(e);
+			limpiar();
 		}
+	}
+	
+	public void limpiar() {
+		vEventos.tfCodigo.setText("");
+		vEventos.tfFecha.setText("");
+		vEventos.tfMentor.setText("");
+		vEventos.tfCategoria.setText("");
+		vEventos.tfDuracion.setText("");
+		vEventos.tfLugar.setText("");
 	}
 
 	@Override
