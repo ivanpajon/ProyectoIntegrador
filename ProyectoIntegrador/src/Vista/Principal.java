@@ -13,5 +13,5 @@ public class Principal {
 		vInicio.setControlador(cInicio);
 		vInicio.setVisible(true);
 	}
-//prueba git
+
 }
