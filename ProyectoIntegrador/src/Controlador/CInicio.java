@@ -2,7 +2,9 @@ package Controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import Entidades.Eventos;
 import OracleAccess.OracleAccess;
 import Vista.VEventos;
 import Vista.VInicio;

@@ -2,14 +2,11 @@ package Vista;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import Controlador.CInicio;
 
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class VInicio extends JFrame {
 
@@ -18,18 +15,12 @@ public class VInicio extends JFrame {
 	public JButton btnProveedor;
 	public JButton btnProyectos;
 	public JButton btnUsuarios;
-	public JButton btnUsuariosEventos;
+	public JButton btnReservas;
 	public JButton btnPedidos;
 	public JButton btnMaterial;
 	public JButton btnMaquina;
 	
 	public VInicio() {		
-		try {
-			//UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
-		} catch (Exception e) {
-			System.out.println("Error al aplicar estilo de ventana");
-		}
-		
 		setTitle("Inicio");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 260);
@@ -66,13 +57,12 @@ public class VInicio extends JFrame {
 		btnUsuarios.setBounds(205, 115, 150, 40);
 		contentPane.add(btnUsuarios);
 		
-		btnUsuariosEventos = new JButton("Usuarios Eventos");
-		btnUsuariosEventos.setBounds(205, 166, 150, 40);
-		contentPane.add(btnUsuariosEventos);
+		btnReservas = new JButton("Reservas");
+		btnReservas.setBounds(205, 166, 150, 40);
+		contentPane.add(btnReservas);
 	}
 	
 	public void setControlador(CInicio c) {
 		btnEventos.addActionListener(c);
 	}
-		
 }

@@ -5,17 +5,25 @@ public class Eventos {
 	private String fecha;
 	private String mentor;
 	private String categoria;
-	private int duracion;
+	private String duracion;
 	private String lugar;
 	
-	public Eventos(String cod_ev, String fecha, String mentor, String categoria, int duracion, String lugar) {
-		super();
+	public Eventos(String cod_ev, String fecha, String mentor, String categoria, String duracion, String lugar) {
 		this.cod_ev = cod_ev;
 		this.fecha = fecha;
 		this.mentor = mentor;
 		this.categoria = categoria;
 		this.duracion = duracion;
 		this.lugar = lugar;
+	}
+	
+	public Eventos() {
+		this.cod_ev = "";
+		this.fecha = "";
+		this.mentor = "";
+		this.categoria = "";
+		this.duracion = "";
+		this.lugar = "";
 	}
 
 	public String getCod_ev() {
@@ -50,11 +58,11 @@ public class Eventos {
 		this.categoria = categoria;
 	}
 
-	public int getDuracion() {
+	public String getDuracion() {
 		return duracion;
 	}
 
-	public void setDuracion(int duracion) {
+	public void setDuracion(String duracion) {
 		this.duracion = duracion;
 	}
 
