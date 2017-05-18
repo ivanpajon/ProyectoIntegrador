@@ -13,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.SwingConstants;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JCalendar;
 
 public class VEventos extends JFrame {
 
@@ -27,7 +29,8 @@ public class VEventos extends JFrame {
 	public JButton btnInsertar;
 	public JButton btnModificar;
 	public JButton btnBorrar;
-	public JLabel lblerror;
+	public JLabel lblError;
+	public JDateChooser dateChooser;
 	
 	public VEventos() {
 		/*try {
@@ -53,12 +56,12 @@ public class VEventos extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"C\u00F3digo", "Fecha", "Mentor", "Categor\u00EDa", "Duraci\u00F3n", "Lugar"
+				"Código", "Fecha", "Mentor", "Categoría", "Duración", "Lugar"
 			}
 		));
 		scrollPane.setViewportView(table);
 		
-		JLabel lblCodigo = new JLabel("C\u00F3digo");
+		JLabel lblCodigo = new JLabel("Código");
 		lblCodigo.setBounds(16, 20, 95, 18);
 		contentPane.add(lblCodigo);
 		
@@ -70,11 +73,11 @@ public class VEventos extends JFrame {
 		lblMentor.setBounds(16, 95, 95, 18);
 		contentPane.add(lblMentor);
 		
-		JLabel lblCategoria = new JLabel("Categor\u00EDa");
+		JLabel lblCategoria = new JLabel("Categoría");
 		lblCategoria.setBounds(16, 137, 95, 18);
 		contentPane.add(lblCategoria);
 		
-		JLabel lblDuracion = new JLabel("Duraci\u00F3n");
+		JLabel lblDuracion = new JLabel("Duración");
 		lblDuracion.setBounds(16, 177, 95, 18);
 		contentPane.add(lblDuracion);
 		
@@ -124,10 +127,15 @@ public class VEventos extends JFrame {
 		contentPane.add(tfLugar);
 		tfLugar.setColumns(10);
 		
-		lblerror = new JLabel("");
-		lblerror.setHorizontalAlignment(SwingConstants.CENTER);
-		lblerror.setBounds(0, 265, 434, 18);
-		contentPane.add(lblerror);
+		lblError = new JLabel("");
+		lblError.setHorizontalAlignment(SwingConstants.CENTER);
+		lblError.setBounds(0, 265, 434, 18);
+		contentPane.add(lblError);
+		
+		dateChooser = new JDateChooser();
+		dateChooser.setDateFormatString("YYYY/MM/dd");
+		dateChooser.setBounds(16, 263, 95, 20);
+		contentPane.add(dateChooser);
 	}
 	
 	public void setControlador(CEventos c) {

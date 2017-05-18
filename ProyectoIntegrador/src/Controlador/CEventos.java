@@ -6,8 +6,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.table.DefaultTableModel;
+
+import com.toedter.calendar.JDateChooser;
 
 import Entidades.Eventos;
 import OracleAccess.OracleAccess;
@@ -63,10 +66,10 @@ public class CEventos implements ActionListener, MouseListener {
 			modificarEvento();
 		}
 	}
-
+	
 	private void modificarEvento() {
 		Eventos e = new Eventos(vEventos.tfCodigo.getText(), vEventos.tfFecha.getText(), vEventos.tfMentor.getText(), vEventos.tfCategoria.getText(), vEventos.tfDuracion.getText(), vEventos.tfLugar.getText());
-		gEventos.modificarEvento(e);
+		gEventos.modificarEvento(vEventos, e);
 		
 		DefaultTableModel tabla = (DefaultTableModel) vEventos.table.getModel();
 		int fila = vEventos.table.getSelectedRow();
@@ -80,8 +83,8 @@ public class CEventos implements ActionListener, MouseListener {
 
 	private void eliminarEvento() {
 		if (vEventos.tfCodigo.getText().equals("")) {
-			vEventos.lblerror.setForeground(Color.RED);
-			vEventos.lblerror.setText("Haga clic en el evento que desea borrar por favor");
+			vEventos.lblError.setForeground(Color.RED);
+			vEventos.lblError.setText("Haga clic en el evento que desea borrar por favor");
 		}
 		
 		else {
@@ -94,13 +97,13 @@ public class CEventos implements ActionListener, MouseListener {
 				tabla.removeRow(fila);
 				eventos.remove(fila);
 				
-				vEventos.lblerror.setForeground(Color.GREEN.darker());
-				vEventos.lblerror.setText("Evento eliminado correctamente");
+				vEventos.lblError.setForeground(Color.GREEN.darker());
+				vEventos.lblError.setText("Evento eliminado correctamente");
 			}
 			
 			else {
-				vEventos.lblerror.setForeground(Color.RED);
-				vEventos.lblerror.setText("El evento no se pudo eliminar");
+				vEventos.lblError.setForeground(Color.RED);
+				vEventos.lblError.setText("El evento no se pudo eliminar");
 			}
 			limpiar();
 		}
@@ -112,8 +115,8 @@ public class CEventos implements ActionListener, MouseListener {
 			vEventos.btnModificar.setEnabled(true);
 		}
 		if (this.vEventos.tfCodigo.getText().equals("") || this.vEventos.tfFecha.getText().equals("") || this.vEventos.tfMentor.getText().equals("") || this.vEventos.tfCategoria.getText().equals("") || this.vEventos.tfDuracion.getText().equals("") || this.vEventos.tfLugar.getText().equals("")) {
-			vEventos.lblerror.setForeground(Color.RED);
-			vEventos.lblerror.setText("Rellene todos los campos por favor");
+			vEventos.lblError.setForeground(Color.RED);
+			vEventos.lblError.setText("Rellene todos los campos por favor");
 			//JOptionPane.showMessageDialog(null, "Rellene todos los campos por favor");
 			limpiar();
 		}
@@ -128,8 +131,8 @@ public class CEventos implements ActionListener, MouseListener {
 			// Añadir el evento a la base de datos
 			gEventos.añadirEvento(e);
 			limpiar();
-			vEventos.lblerror.setForeground(Color.GREEN.darker());
-			vEventos.lblerror.setText("Evento añadido correctamente");
+			vEventos.lblError.setForeground(Color.GREEN.darker());
+			vEventos.lblError.setText("Evento añadido correctamente");
 		}
 	}
 	
@@ -144,17 +147,21 @@ public class CEventos implements ActionListener, MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		int fila = vEventos.table.rowAtPoint(e.getPoint());
+		Object obj = e.getSource();
 		
-		vEventos.tfCodigo.setText(eventos.get(fila).getCod_ev());
-		vEventos.tfFecha.setText(eventos.get(fila).getFecha());
-		vEventos.tfMentor.setText(eventos.get(fila).getMentor());
-		vEventos.tfCategoria.setText(eventos.get(fila).getCategoria());
-		vEventos.tfDuracion.setText(eventos.get(fila).getDuracion());
-		vEventos.tfLugar.setText(eventos.get(fila).getLugar());
-		
-		// Necesario para que eclipse no la detecte como una fecha y añada HH:MM:SS al final del campo
-		vEventos.tfFecha.setText(eventos.get(fila).getFecha().substring(0, 10));
+		if (obj == vEventos.table) {
+			int fila = vEventos.table.rowAtPoint(e.getPoint());
+			
+			vEventos.tfCodigo.setText(eventos.get(fila).getCod_ev());
+			vEventos.tfFecha.setText(eventos.get(fila).getFecha());
+			vEventos.tfMentor.setText(eventos.get(fila).getMentor());
+			vEventos.tfCategoria.setText(eventos.get(fila).getCategoria());
+			vEventos.tfDuracion.setText(eventos.get(fila).getDuracion());
+			vEventos.tfLugar.setText(eventos.get(fila).getLugar());
+			
+			// Necesario para que eclipse no la detecte como una fecha y añada HH:MM:SS al final del campo
+			vEventos.tfFecha.setText(eventos.get(fila).getFecha().substring(0, 10));
+		}
 	}
 
 	@Override

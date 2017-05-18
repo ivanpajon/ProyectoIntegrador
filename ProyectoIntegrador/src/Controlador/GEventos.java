@@ -3,9 +3,11 @@ package Controlador;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import Entidades.Eventos;
+import Vista.VEventos;
 
 public class GEventos {
 private Connection cn;
@@ -70,7 +72,7 @@ private Connection cn;
 		}
 	}
 	
-	public boolean modificarEvento(Eventos e) {
+	public boolean modificarEvento(VEventos vEventos, Eventos e) {
 		Statement st;
 		try {
 			st = cn.createStatement();
@@ -82,7 +84,12 @@ private Connection cn;
 					                        "' WHERE COD_EV='" + e.getCod_ev() + "'";
 			System.out.println(update);
 			
-			st.executeUpdate(update);
+			String fecha = vEventos.dateChooser.getJCalendar().getYearChooser().getYear() + "-" +
+					       (vEventos.dateChooser.getJCalendar().getMonthChooser().getMonth()+1) + "-" +
+					       vEventos.dateChooser.getJCalendar().getDayChooser().getDay();
+			System.out.println(fecha);
+			
+			//st.executeUpdate(update);
 			st.close();
 			return true;
 		}
