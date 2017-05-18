@@ -29,7 +29,7 @@ public class VEventos extends JFrame {
 	public JButton btnInsertar;
 	public JButton btnModificar;
 	public JButton btnBorrar;
-	public JLabel lblLblerror;
+	public JLabel lblerror;
 	
 	public VEventos() {
 		/*try {
@@ -126,10 +126,10 @@ public class VEventos extends JFrame {
 		contentPane.add(tfLugar);
 		tfLugar.setColumns(10);
 		
-		lblLblerror = new JLabel("");
-		lblLblerror.setHorizontalAlignment(SwingConstants.CENTER);
-		lblLblerror.setBounds(0, 265, 434, 18);
-		contentPane.add(lblLblerror);
+		lblerror = new JLabel("");
+		lblerror.setHorizontalAlignment(SwingConstants.CENTER);
+		lblerror.setBounds(0, 265, 434, 18);
+		contentPane.add(lblerror);
 	}
 	
 	public void setControlador(CEventos c) {

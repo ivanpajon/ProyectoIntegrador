@@ -42,7 +42,7 @@ private Connection cn;
 		Statement st;
 		try {
 			st = cn.createStatement();
-			String insert = "INSERT INTO EVENTOS VALUES('"+e.getCod_ev()+"', '"+e.getFecha()+"', '"+e.getMentor()+"', '"+e.getCategoria()+"', '"+e.getDuracion()+"', '"+e.getLugar()+"')";
+			String insert = "INSERT INTO EVENTOS VALUES('"+e.getCod_ev()+"', TO_DATE('"+e.getFecha()+"', 'YY-MM-DD'), '"+e.getMentor()+"', '"+e.getCategoria()+"', '"+e.getDuracion()+"', '"+e.getLugar()+"')";
 			System.out.println(insert);
 			
 			st.executeUpdate(insert);
@@ -58,7 +58,7 @@ private Connection cn;
 		try {
 			st = cn.createStatement();
 			String delete = "DELETE FROM EVENTOS WHERE COD_EV='" + cod + "'";
-			//System.out.println(delete);
+			System.out.println(delete);
 			
 			st.executeUpdate(delete);
 			st.close();
