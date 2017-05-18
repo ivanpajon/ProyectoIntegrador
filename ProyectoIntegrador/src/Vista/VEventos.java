@@ -9,8 +9,6 @@ import Controlador.CEventos;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
