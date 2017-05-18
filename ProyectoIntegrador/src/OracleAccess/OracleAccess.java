@@ -30,6 +30,6 @@ public class OracleAccess {
 		catch (SQLException e) {
 			//e.printStackTrace();
 			System.out.println("- Error al cerrar la base de datos -");
-		}
+		}//
 	}
 }
