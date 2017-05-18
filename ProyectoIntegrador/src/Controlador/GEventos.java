@@ -17,7 +17,7 @@ private Connection cn;
 	public void consultarEventos(ArrayList<Eventos> eventos) {
 		try {
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM EVENTOS");
+			ResultSet rs = st.executeQuery("SELECT * FROM EVENTOS ORDER BY COD_EV");
 			
 			while(rs.next()) {
 				Eventos e = new Eventos();
