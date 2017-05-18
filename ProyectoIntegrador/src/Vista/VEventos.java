@@ -136,5 +136,6 @@ public class VEventos extends JFrame {
 		btnInsertar.addActionListener(c);
 		btnModificar.addActionListener(c);
 		btnBorrar.addActionListener(c);
+		table.addMouseListener(c);
 	}
 }

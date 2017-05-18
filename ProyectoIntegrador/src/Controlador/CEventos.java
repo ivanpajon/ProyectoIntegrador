@@ -51,6 +51,33 @@ public class CEventos implements ActionListener, MouseListener {
 				vEventos.btnInsertar.setText("Insertar");
 			}
 		}
+		else if (obj == vEventos.btnBorrar) {
+			eliminarEvento();
+		}
+	}
+
+	private void eliminarEvento() {
+		if (vEventos.tfCodigo.getText().equals("")) {
+			vEventos.lblLblerror.setForeground(Color.RED);
+			vEventos.lblLblerror.setText("Haga clic en el evento que desea borrar por favor");
+		}
+		
+		else {
+			// Eliminar el evento de la base de datos
+			int cod = Integer.parseInt(vEventos.tfCodigo.getText());
+			gEventos.eliminarEvento(cod);
+			
+			// Eliminar el evento de la tabla
+			DefaultTableModel tabla = (DefaultTableModel) vEventos.table.getModel();
+			int fila = vEventos.table.getSelectedRow();
+			System.out.println(fila);
+			tabla.removeRow(fila);
+			
+			vEventos.lblLblerror.setForeground(Color.GREEN.darker());
+			vEventos.lblLblerror.setText("Evento eliminado correctamente");
+			
+			limpiar();
+		}
 	}
 
 	private void añadirEvento() {
@@ -68,9 +95,11 @@ public class CEventos implements ActionListener, MouseListener {
 			Eventos e = new Eventos(vEventos.tfCodigo.getText(), vEventos.tfFecha.getText(), vEventos.tfMentor.getText(), vEventos.tfCategoria.getText(), vEventos.tfDuracion.getText(), vEventos.tfLugar.getText());
 			eventos.add(e);
 			
+			// Añadir el evento a la tabla
 			DefaultTableModel tabla = (DefaultTableModel) vEventos.table.getModel();
 			tabla.addRow(new Object[] {e.getCod_ev(), e.getFecha(), e.getMentor(), e.getCategoria(), e.getDuracion(), e.getLugar()});
 			
+			// Añadir el evento a la base de datos
 			gEventos.añadirEvento(e);
 			limpiar();
 		}
@@ -87,7 +116,14 @@ public class CEventos implements ActionListener, MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		int fila = vEventos.table.rowAtPoint(e.getPoint());
 		
+		vEventos.tfCodigo.setText(eventos.get(fila).getCod_ev());
+		vEventos.tfFecha.setText(eventos.get(fila).getFecha());
+		vEventos.tfMentor.setText(eventos.get(fila).getMentor());
+		vEventos.tfCategoria.setText(eventos.get(fila).getCategoria());
+		vEventos.tfDuracion.setText(eventos.get(fila).getDuracion());
+		vEventos.tfLugar.setText(eventos.get(fila).getLugar());
 	}
 
 	@Override

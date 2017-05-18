@@ -53,11 +53,11 @@ private Connection cn;
 		}
 	}
 	
-	/*public boolean eliminarDep(int cod) {
+	public boolean eliminarEvento(int cod) {
 		Statement st;
 		try {
 			st = cn.createStatement();
-			String delete = "DELETE FROM DEPT WHERE DEPTNO='" + cod + "'";
+			String delete = "DELETE FROM EVENTOS WHERE COD_EV='" + cod + "'";
 			//System.out.println(delete);
 			
 			st.executeUpdate(delete);
@@ -65,12 +65,12 @@ private Connection cn;
 			return true;
 		}
 		catch(Exception e) {
-			System.out.println("Error - " + e.getMessage());
+			System.out.println("Error eliminando el evento - " + e);
 			return false;
 		}
 	}
 	
-	public boolean modificarDep(Departamento d) {
+	/*public boolean modificarDep(Departamento d) {
 		Statement st;
 		try {
 			st = cn.createStatement();
