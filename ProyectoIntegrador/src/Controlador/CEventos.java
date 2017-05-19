@@ -5,16 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.table.DefaultTableModel;
-
-import com.toedter.calendar.JDateChooser;
 
 import Entidades.Eventos;
 import OracleAccess.OracleAccess;
@@ -40,7 +36,7 @@ public class CEventos implements ActionListener, MouseListener {
 	private void cargarEventos() {
 		for (Eventos e : eventos) {
 			DefaultTableModel tabla = (DefaultTableModel) vEventos.table.getModel();
-			tabla.addRow(new Object[] {e.getCod_ev(), e.getFecha().substring(0, e.getFecha().indexOf(' ')), e.getMentor(), e.getCategoria(), e.getDuracion(), e.getLugar()});
+			tabla.addRow(new Object[] {e.getCod_ev(), e.getFecha(), e.getMentor(), e.getCategoria(), e.getDuracion(), e.getLugar()});
 		}
 	}
 
@@ -170,16 +166,13 @@ public class CEventos implements ActionListener, MouseListener {
 			vEventos.tfDuracion.setText(eventos.get(fila).getDuracion());
 			vEventos.tfLugar.setText(eventos.get(fila).getLugar());
 			
-			// Necesario para que eclipse no la detecte como una fecha y añada HH:MM:SS al final del campo
-			//vEventos.tfFecha.setText(eventos.get(fila).getFecha().substring(0, 10));
-			
 			// Este try-catch hace la misma funcion que las lineas de arriba
 			try {
 				Date date = new SimpleDateFormat("yyyy-MM-dd").parse(eventos.get(fila).getFecha());
 				vEventos.dateChooser.setDate(date);
 			}
 			catch (ParseException ex) {
-				ex.printStackTrace();
+				System.out.println("Error obteniendo fecha - " + ex);
 			}
 		}
 	}
