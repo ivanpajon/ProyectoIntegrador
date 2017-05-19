@@ -14,7 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.SwingConstants;
 import com.toedter.calendar.JDateChooser;
-import com.toedter.calendar.JCalendar;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class VEventos extends JFrame {
 
@@ -45,6 +46,11 @@ public class VEventos extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation(pantalla.width/3, pantalla.height/5);
+		//System.out.println("Ancho - " + pantalla.width/3);
+		//System.out.println("Alto - " + pantalla.height/6);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 305, 448, 213);

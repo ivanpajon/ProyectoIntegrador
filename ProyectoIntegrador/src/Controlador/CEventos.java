@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ public class CEventos implements ActionListener, MouseListener {
 		this.gEventos.consultarEventos(eventos);
 		
 		this.vEventos.tfCodigo.setEnabled(false);
+		this.vEventos.dateChooser.getJCalendar().setTodayButtonVisible(true);
+		this.vEventos.dateChooser.getJCalendar().setTodayButtonText("Hoy");
 		
 		cargarEventos();
 	}
@@ -51,6 +54,16 @@ public class CEventos implements ActionListener, MouseListener {
 				vEventos.btnInsertar.setText("Guardar");
 				vEventos.btnModificar.setEnabled(false);
 				vEventos.btnBorrar.setEnabled(false);
+				// Con este try-catch introducimos por defecto la fecha de hoy
+				try {
+					DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+					Date today = new Date();
+					System.out.println(dateFormat.format(today));
+					vEventos.dateChooser.setDate(today);
+				}
+				catch (Exception ex) {
+					System.out.println("Error obteniendo fecha - " + ex);
+				}
 			}
 			else if (vEventos.btnInsertar.getText().equals("Guardar")) {
 				añadirEvento();
@@ -125,6 +138,7 @@ public class CEventos implements ActionListener, MouseListener {
 		if (this.vEventos.tfCodigo.getText().equals("") || fecha.equals("") || this.vEventos.tfMentor.getText().equals("") || this.vEventos.tfCategoria.getText().equals("") || this.vEventos.tfDuracion.getText().equals("") || this.vEventos.tfLugar.getText().equals("")) {
 			vEventos.lblError.setForeground(Color.RED);
 			vEventos.lblError.setText("Rellene todos los campos por favor");
+			System.out.println("Fecha:" + fecha);
 			//JOptionPane.showMessageDialog(null, "Rellene todos los campos por favor");
 			limpiar();
 		}
@@ -146,7 +160,6 @@ public class CEventos implements ActionListener, MouseListener {
 	
 	public void limpiar() {
 		vEventos.tfCodigo.setText("");
-		vEventos.dateChooser.setDateFormatString("");
 		vEventos.tfMentor.setText("");
 		vEventos.tfCategoria.setText("");
 		vEventos.tfDuracion.setText("");
