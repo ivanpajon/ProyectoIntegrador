@@ -6,6 +6,9 @@ import javax.swing.border.EmptyBorder;
 
 import Controlador.CInicio;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JButton;
 
 public class VInicio extends JFrame {
@@ -28,6 +31,11 @@ public class VInicio extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation(pantalla.width/3, pantalla.height/5);
+		//System.out.println("Ancho - " + pantalla.width/3);
+		//System.out.println("Alto - " + pantalla.height/6);
 		
 		btnEventos = new JButton("Eventos");
 		btnEventos.setBounds(30, 13, 150, 40);
