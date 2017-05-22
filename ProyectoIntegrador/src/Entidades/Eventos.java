@@ -35,7 +35,7 @@ public class Eventos {
 	}
 
 	public String getFecha() {
-		return fecha;
+		return fecha.substring(0, fecha.indexOf(' '));
 	}
 
 	public void setFecha(String fecha) {
