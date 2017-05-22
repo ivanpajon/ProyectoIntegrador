@@ -81,21 +81,27 @@ public class CEventos implements ActionListener, MouseListener {
 	}
 	
 	private void modificarEvento() {
-		String fecha = vEventos.dateChooser.getJCalendar().getYearChooser().getYear() + "-" +
-		              (vEventos.dateChooser.getJCalendar().getMonthChooser().getMonth()+1) + "-" +
-		               vEventos.dateChooser.getJCalendar().getDayChooser().getDay();
-		
-		Eventos e = new Eventos(vEventos.tfCodigo.getText(), fecha, vEventos.tfMentor.getText(), vEventos.tfCategoria.getText(), vEventos.tfDuracion.getText(), vEventos.tfLugar.getText());
-		gEventos.modificarEvento(vEventos, e);
-		
-		DefaultTableModel tabla = (DefaultTableModel) vEventos.table.getModel();
-		int fila = vEventos.table.getSelectedRow();
-		tabla.setValueAt(e.getCod_ev(), fila, 0);
-		tabla.setValueAt(fecha, fila, 1);
-		tabla.setValueAt(e.getMentor(), fila, 2);
-		tabla.setValueAt(e.getCategoria(), fila, 3);
-		tabla.setValueAt(e.getDuracion(), fila, 4);
-		tabla.setValueAt(e.getLugar(), fila, 5);
+		if (this.vEventos.tfCodigo.getText().equals("")) {
+			vEventos.lblError.setForeground(Color.RED);
+			vEventos.lblError.setText("Haga clic en el evento que desea modificar por favor");
+		}
+		else {
+			String fecha = vEventos.dateChooser.getJCalendar().getYearChooser().getYear() + "-" +
+			              (vEventos.dateChooser.getJCalendar().getMonthChooser().getMonth()+1) + "-" +
+			               vEventos.dateChooser.getJCalendar().getDayChooser().getDay();
+			
+			Eventos e = new Eventos(vEventos.tfCodigo.getText(), fecha, vEventos.tfMentor.getText(), vEventos.tfCategoria.getText(), vEventos.tfDuracion.getText(), vEventos.tfLugar.getText());
+			gEventos.modificarEvento(vEventos, e);
+			
+			DefaultTableModel tabla = (DefaultTableModel) vEventos.table.getModel();
+			int fila = vEventos.table.getSelectedRow();
+			tabla.setValueAt(e.getCod_ev(), fila, 0);
+			tabla.setValueAt(fecha, fila, 1);
+			tabla.setValueAt(e.getMentor(), fila, 2);
+			tabla.setValueAt(e.getCategoria(), fila, 3);
+			tabla.setValueAt(e.getDuracion(), fila, 4);
+			tabla.setValueAt(e.getLugar(), fila, 5);
+		}
 	}
 
 	private void eliminarEvento() {
