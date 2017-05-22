@@ -1,0 +1,251 @@
+DROP TABLE UsuariosEventos;
+DROP TABLE ProyectosUsuarios;
+DROP TABLE ProyectosMaquina;
+DROP TABLE MaterialProyectos;
+DROP TABLE Linea_Pedido;
+DROP TABLE Pedidos;
+DROP TABLE Proveedor;
+DROP TABLE Material;
+DROP TABLE Proyectos;
+DROP TABLE Maquina;
+DROP TABLE Usuarios;
+DROP TABLE Eventos;
+
+CREATE TABLE Proveedor (CIF varchar2(9) CONSTRAINT CIF_pk PRIMARY KEY,
+                        Nombre varchar2(25),
+                        Correo varchar2(50),
+                        TFNO number(9),
+                        Direc varchar2(35),
+                        Cod_po number(10),
+                        Des varchar2(50));
+CREATE TABLE Pedidos (Cod_pd number(5) CONSTRAINT Cod_pd_pk PRIMARY KEY,
+                      Fecha DATE,
+                      Tot_importe number(6,2),
+                      CIF varchar2(9),
+                      CONSTRAINT CIF_fk FOREIGN KEY(CIF) REFERENCES Proveedor(CIF));
+CREATE TABLE Material (Cod_mt number(5) CONSTRAINT Cod_mt_pk PRIMARY KEY,
+                       Nombre varchar2(25),
+                       Des varchar2(50),
+                       Tipo varchar2(20),
+                       Stock number(5));
+CREATE TABLE Proyectos (Cod_pr number(5) CONSTRAINT Cod_pr_pk PRIMARY KEY,
+                        Nombre varchar2(50),
+                        Des varchar2(50));
+CREATE TABLE Maquina (Cod_ma number(5) CONSTRAINT Cod_ma_pk PRIMARY KEY,
+                      Nombre varchar2(25),
+                      Des varchar2(50),
+                      Tipo varchar2(20));
+CREATE TABLE Usuarios (ID_Soci number(5) CONSTRAINT ID_Soci_pk PRIMARY KEY,
+                       Nombre varchar2(25),
+                       Apell varchar2(25),
+                       Correo varchar2(30),
+                       Tfno number(9),
+                       Tipo_us varchar2(25));
+CREATE TABLE Eventos (Cod_ev number(5) CONSTRAINT Cod_ev_pk PRIMARY KEY,
+                      Fecha DATE,
+                      Mentor varchar2(30),
+                      Categoria varchar2(30),
+                      Duracion varchar2(30),
+                      Lugar varchar2(30));
+CREATE TABLE Linea_Pedido (Cod_pd number(5),
+                           Cod_mt number(5),
+                           Cantidad number(5),
+                           Precio_unidad number(6,2),
+                           CONSTRAINT Linea_pedido_pk PRIMARY KEY (Cod_pd, Cod_mt),
+                           CONSTRAINT Cod_pd_Linea_pedido_fk FOREIGN KEY(Cod_pd) REFERENCES Pedidos(Cod_pd),
+                           CONSTRAINT Cod_mt_Linea_pedido_fk FOREIGN KEY(Cod_mt) REFERENCES Material(Cod_mt));
+CREATE TABLE MaterialProyectos (Cod_mt number(5),
+                                Cod_pr number(5),
+                                Cantidad number(5),
+                                CONSTRAINT MaterialProyectos_pk PRIMARY KEY (Cod_mt, Cod_pr),
+                                CONSTRAINT Cod_mt_MaterialProyectos_fk FOREIGN KEY(Cod_mt) REFERENCES Material(Cod_mt),
+                                CONSTRAINT Cod_pr_MaterialProyectos_fk FOREIGN KEY(Cod_pr) REFERENCES Proyectos(Cod_pr));
+CREATE TABLE ProyectosMaquina (Cod_pr number(5),
+                               Cod_ma number(5),
+                               Fecha_inicio DATE,
+                               Fecha_fin DATE,
+                               CONSTRAINT ProyectosMaquina_pk PRIMARY KEY (Cod_pr, Cod_ma),
+                               CONSTRAINT Cod_pr_ProyectosMaquina_fk FOREIGN KEY(Cod_pr) REFERENCES Proyectos(Cod_pr),
+                               CONSTRAINT Cod_ma_ProyectosMaquina_fk FOREIGN KEY(Cod_ma) REFERENCES Maquina(Cod_ma));
+CREATE TABLE ProyectosUsuarios (Cod_pr number(5),
+                                ID_Soci number(5),
+                                CONSTRAINT ProyectosUsuarios_pk PRIMARY KEY (Cod_pr, ID_Soci),
+                                CONSTRAINT Cod_pr_ProyectosUsuarios_fk FOREIGN KEY(Cod_pr) REFERENCES Proyectos(Cod_pr),
+                                CONSTRAINT ID_Soci_ProyectosUsuarios_fk FOREIGN KEY(ID_Soci) REFERENCES Usuarios(ID_Soci));
+CREATE TABLE UsuariosEventos (ID_Soci number(5),
+                              Cod_ev number(5),
+                              CONSTRAINT UsuariosEventos_pk PRIMARY KEY (ID_Soci, Cod_ev),
+                              CONSTRAINT ID_Soci_UsuariosEventos_fk FOREIGN KEY(ID_Soci) REFERENCES Usuarios(ID_Soci),
+                              CONSTRAINT Cod_ev_UsuariosEventos_fk FOREIGN KEY(Cod_ev) REFERENCES Eventos(Cod_ev));
+
+INSERT INTO Proveedor VALUES ('G3397769E', 'CADIELSA', 'illosummo-6060@hotmail.com', '608342057', 'Av. Zumalakarregi, 94', '37795', 'Repuesto de piezas móviles');
+INSERT INTO Proveedor VALUES ('F7093429D', 'EyjCerceda', 'adduttappossu-0735@gmail.com', '725236783', 'Rúa do Paseo, 64', '37220', 'Electrónica y sistemas');
+INSERT INTO Proveedor VALUES ('C44321487', 'PEN&PAPER', 'ullarrossaff-3810@hotmail.com', '610781478', 'Avda. Alameda Sundheim, 78', '41920', 'Cableado y sistemas');
+INSERT INTO Proveedor VALUES ('F22285167', 'Ofistore', 'wofemirra-5481@hotmail.com', '769054132', 'José matía, 69', '37797', 'Software y sistemas informáticos');
+INSERT INTO Proveedor VALUES ('B45704285', 'Fegime', 'uddinnavelo-9667@gmail.com', '640136528', 'C/ Cañada del Rosal, 8', '21850', 'Electricidad y cableado');
+INSERT INTO Proveedor VALUES ('R3123855C', 'Disanz', 'ejodessomm-1736@hotmail.com', '691588531', 'Puerto Lugar, 35', '05100', 'Venta de partes móviles');
+INSERT INTO Proveedor VALUES ('V4675289E', 'PMC Grup', 'ennuwoxili-2225@gmail.com', '638140435', 'Ctra. Beas-Cortijos Nuevos, 32', '12140', 'Venta de cableado electrico');
+INSERT INTO Proveedor VALUES ('G01994722', 'Toyota', 'iraddittiw-4607@hotmail.com', '759533183', 'Ctra. de Fuentenueva, 27', '30564', 'Venta de cableado de datos');
+INSERT INTO Proveedor VALUES ('U2376629H', 'Comercial Moratalaz', 'omadittarra-7227@hotmail.com', '792110466', 'Avda. Alameda Sundheim, 81', '49400', 'Software');
+INSERT INTO Proveedor VALUES ('B25023193', 'VIDRIO POBEL', 'sunozeffi-8746@hotmail.com', '647467485', 'Bouciña, 43', '33734', 'Partes de vidrio de impresoras');
+INSERT INTO Proveedor VALUES ('V06516256', 'Dimel Castilla', 'ewilolit-1322@gmail.com', '722373099', 'Cruce Casa de Postas, 37', '28491', 'Proveedor de poliestireno');
+INSERT INTO Proveedor VALUES ('F5782522F', 'Usera', 'yvufossibi-9729@hotmail.com', '630487709', 'C/ Eras, 33', '20810', 'Proveedor de hardware, partes metalicas');
+INSERT INTO Proveedor VALUES ('D29962719', 'Proclinic', 'abejoha-9747@hotmail.com', '665982145', 'Paseo del Atlántico, 57', '10840', 'Analisis de datos y software');
+INSERT INTO Proveedor VALUES ('B38129219', 'MOMY', 'azesogarr-0743@gmail.com', '615453981', 'Socampo, 30', '20491', 'Servivio tecnico');
+INSERT INTO Proveedor VALUES ('D75520684', 'FastCup', 'hodirexu-2481@hotmail.com', '639015327', 'Av. Santiago Lapuente, 20', '17249', 'Servicio tecnico 24h');
+INSERT INTO Proveedor VALUES ('H80063977', 'Jemse TPV', 'qiffeddobiz-0176@gmail.com', '654119556', 'Ventanilla de Beas, 78', '24100', 'Inspeccion de materiales');
+INSERT INTO Proveedor VALUES ('E17872011', 'ByPeak', 'unixutimmu-9108@hotmail.com', '725386241', 'Extramuros, 52', '21660', 'Chequeo de software');
+INSERT INTO Proveedor VALUES ('E70702634', 'Soluntic', 'iginoratt-2381@gmail.com', '675955354', 'Constitución, 24', '02520', 'Servicio tecnico');
+INSERT INTO Proveedor VALUES ('F0341924I', 'Noglu Group', 'yxabullox-7874@hotmail.com', '696269186', 'Valadouro, 93', '13328', 'Reparacion');
+INSERT INTO Proveedor VALUES ('G1293860A', 'BCN Seguros', 'iddaddezuffa-5463@hotmail.com', '691122555', 'Rúa de San Pedro, 48', '08830', 'Seguro antirotura');
+
+INSERT INTO Pedidos VALUES ('00001', '01/04/2017', '5000.00', 'G3397769E');
+INSERT INTO Pedidos VALUES ('00002', '10/10/2016', '2512.21', 'D29962719');
+INSERT INTO Pedidos VALUES ('00003', '12/15/2017', '1560.21', 'F7093429D');
+INSERT INTO Pedidos VALUES ('00004', '11/02/2016', '3200.32', 'V4675289E');
+INSERT INTO Pedidos VALUES ('00005', '10/01/2016', '560.78', 'V06516256');
+INSERT INTO Pedidos VALUES ('00006', '01/24/2017', '999.99', 'V06516256');
+INSERT INTO Pedidos VALUES ('00007', '05/12/2017', '100.80', 'D29962719');
+INSERT INTO Pedidos VALUES ('00008', '10/02/2016', '3005.21', 'H80063977');
+INSERT INTO Pedidos VALUES ('00009', '01/15/2016', '4000.29', 'D75520684');
+INSERT INTO Pedidos VALUES ('00010', '02/11/2017', '7892.65', 'G1293860A');
+INSERT INTO Pedidos VALUES ('00011', '03/24/2015', '612.85', 'G1293860A');
+INSERT INTO Pedidos VALUES ('00012', '04/03/2017', '327.31', 'G1293860A');
+INSERT INTO Pedidos VALUES ('00013', '04/07/2017', '132.54', 'U2376629H');
+INSERT INTO Pedidos VALUES ('00014', '05/02/2017', '600.30', 'H80063977');
+INSERT INTO Pedidos VALUES ('00015', '07/09/2016', '100.00', 'C44321487');
+INSERT INTO Pedidos VALUES ('00016', '07/24/2017', '78.89', 'C44321487');
+INSERT INTO Pedidos VALUES ('00017', '10/01/2017', '65.87', 'C44321487');
+INSERT INTO Pedidos VALUES ('00018', '07/15/2016', '50.60', 'H80063977');
+INSERT INTO Pedidos VALUES ('00019', '09/09/2015', '65.56', 'F0341924I');
+INSERT INTO Pedidos VALUES ('00020', '06/08/2017', '69.99', 'D29962719');
+
+INSERT INTO Material VALUES ('00001', 'Poliestireno_Baja', 'Baja densidad', 'Plastico', '200');
+INSERT INTO Material VALUES ('00002', 'Vidrio', 'Cristal para impresora 3D', 'Vidrio', '50');
+INSERT INTO Material VALUES ('00003', 'Poliestireno_Alta', 'Alta densidad', 'Plastico', '15');
+INSERT INTO Material VALUES ('00004', 'Planchas_Int', 'Material para estructuras', 'Aluminio', '80');
+INSERT INTO Material VALUES ('00005', 'Planchas_Ext', 'Material para estructuras', 'Acero', '80');
+INSERT INTO Material VALUES ('00006', 'Agujas', 'Da forma al material', 'Titanio', '50');
+INSERT INTO Material VALUES ('00007', 'Cables de datos', 'Transmisión de datos', 'Cobre', '60');
+INSERT INTO Material VALUES ('00008', 'Cables de electricidad', 'Transporte de electricidad', 'Cobre', '80');
+INSERT INTO Material VALUES ('00009', 'Rieles', 'Mueve la aguja', 'Aluminio', '50');
+INSERT INTO Material VALUES ('00010', 'Engranaje de aguja', 'Mueve la aguja', 'Aluminio', '80');
+
+INSERT INTO Proyectos VALUES ('00001', 'Primer proyecto', 'Instalacion de impresora');
+INSERT INTO Proyectos VALUES ('00002', 'Segundo proyecto', 'Instalación de impresora');
+INSERT INTO Proyectos VALUES ('00003', 'Tercer proyecto', 'Instalación de impresora');
+INSERT INTO Proyectos VALUES ('00004', 'Renovación Corte Ingles Serrano', 'Renovación de material');
+INSERT INTO Proyectos VALUES ('00005', 'Renovación papeleria', 'Renovación de material');
+INSERT INTO Proyectos VALUES ('00006', 'Renovacion Corte Ingles Goya', 'Renovacion de material');
+INSERT INTO Proyectos VALUES ('00007', 'Instalacion Nebrija', 'Instalacion de impresora');
+INSERT INTO Proyectos VALUES ('00008', 'Instalacion UEM', 'Impresora en primera planta');
+INSERT INTO Proyectos VALUES ('00009', 'Instalacion UEM', 'Impresora en segunda planta');
+INSERT INTO Proyectos VALUES ('00010', 'Instalacion UEM', 'Impresora en tercera planta');
+
+INSERT INTO Maquina VALUES ('00001', 'Impresora X10', 'Diseño detallista', 'Tipo 1');
+INSERT INTO Maquina VALUES ('00002', 'Impresora X20', 'Diseño realista', 'Tipo 2');
+INSERT INTO Maquina VALUES ('00003', 'Impresora Delta', 'Diseño detallista', 'Tipo 1');
+INSERT INTO Maquina VALUES ('00004', 'Impresora X300', 'Diseño realista y detallista', 'Tipo 3');
+INSERT INTO Maquina VALUES ('00005', 'Impresora XYZ', 'Diseño detallista', 'Tipo 1');
+INSERT INTO Maquina VALUES ('00006', 'Impresora X20', 'Diseño realista', 'Tipo 2');
+INSERT INTO Maquina VALUES ('00007', 'Impresora Tico', 'Diseño realista', 'Tipo 2');
+INSERT INTO Maquina VALUES ('00008', 'Impresora X10', 'Diseño detallista', 'Tipo 1');
+INSERT INTO Maquina VALUES ('00009', 'Impresora X20', 'Diseño realista', 'Tipo 2');
+INSERT INTO Maquina VALUES ('00010', 'Impresora XYZ+', 'Diseño detallista', 'Tipo 1');
+
+INSERT INTO Usuarios VALUES ('00001', 'Sergio', 'Fernandez', 'sergfer@gmail.com', '666666666', 'VIP');
+INSERT INTO Usuarios VALUES ('00002', 'Herminia', 'Sanchez', 'hersanchez@gmail.com', '655555555', 'Basico');
+INSERT INTO Usuarios VALUES ('00003', 'Adrian', 'Arias', 'adriar@gmail.com', '622222222', 'VIP');
+INSERT INTO Usuarios VALUES ('00004', 'Ivan', 'Pajon', 'ivpajon@gmail.com', '633333333', 'VIP');
+INSERT INTO Usuarios VALUES ('00005', 'Cesar', 'Quoto', 'cequoto@gmail.com', '611111111', 'VIP');
+INSERT INTO Usuarios VALUES ('00006', 'Oscar', 'Cabrera', 'oscab@gmail.com', '600000000', 'Basico');
+INSERT INTO Usuarios VALUES ('00007', 'Daniel', 'Remin', 'daremin@gmail.com', '601234567', 'Plata');
+INSERT INTO Usuarios VALUES ('00008', 'Daniela', 'Escribano', 'daniescrib@gmail.com', '676543210', 'Oro');
+INSERT INTO Usuarios VALUES ('00009', 'Jose', 'Urbano', 'jourbano@gmail.com', '654987549', 'Plata');
+INSERT INTO Usuarios VALUES ('00010', 'Sara', 'Radial', 'saradial@gmail.com', '603020152', 'VIP');
+
+INSERT INTO Eventos VALUES ('00001', '01/31/2015', 'D.Daniel', 'Visita', '90 min.', 'Aula 100');
+INSERT INTO Eventos VALUES ('00002', '03/05/2017', 'D. Daniel', 'Charla', '90 min.', 'Aula 102');
+INSERT INTO Eventos VALUES ('00003', '04/03/2016', 'D. Enrique', 'Charla', '90 min.', 'Aula 130');
+INSERT INTO Eventos VALUES ('00004', '05/08/2017', 'D. Manuel', 'Reunion', '90 min.', 'Aula 110');
+INSERT INTO Eventos VALUES ('00005', '06/10/2017', 'D. Oscar', 'Reunion', '90 min.', 'Aula 106');
+INSERT INTO Eventos VALUES ('00006', '07/05/2016', 'D. Daniel', 'Charla', '90 min.', 'Aula 108');
+INSERT INTO Eventos VALUES ('00007', '08/01/2016', 'D. Manuel', 'Charla', '90 min.', 'Aula 110');
+INSERT INTO Eventos VALUES ('00008', '05/22/2017', 'D. Oscar', 'Reunion', '90 min.', 'Aula 102');
+INSERT INTO Eventos VALUES ('00009', '07/12/2016', 'D. Pepe', 'Reunion', '90 min.', 'Aula 104');
+INSERT INTO Eventos VALUES ('00010', '05/03/2017', 'D. Pablo', 'Charla', '90 min.', 'Aula 104');
+
+INSERT INTO Linea_Pedido VALUES ('00001', '00001', '5', '20.00');
+INSERT INTO Linea_Pedido VALUES ('00002', '00003', '10', '30.00');
+INSERT INTO Linea_Pedido VALUES ('00003', '00004', '12', '50.00');
+INSERT INTO Linea_Pedido VALUES ('00004', '00005', '15', '80.00');
+INSERT INTO Linea_Pedido VALUES ('00005', '00005', '20', '80.00');
+INSERT INTO Linea_Pedido VALUES ('00006', '00005', '12', '80.00');
+INSERT INTO Linea_Pedido VALUES ('00007', '00006', '20', '110.00');
+INSERT INTO Linea_Pedido VALUES ('00008', '00001', '15', '20.00');
+INSERT INTO Linea_Pedido VALUES ('00009', '00001', '15', '20.00');
+INSERT INTO Linea_Pedido VALUES ('00010', '00001', '20', '20.00');
+
+INSERT INTO MaterialProyectos VALUES ('00001', '00001', '2');
+INSERT INTO MaterialProyectos VALUES ('00002', '00002', '5');
+INSERT INTO MaterialProyectos VALUES ('00003', '00003', '3');
+INSERT INTO MaterialProyectos VALUES ('00004', '00003', '2');
+INSERT INTO MaterialProyectos VALUES ('00005', '00001', '2');
+INSERT INTO MaterialProyectos VALUES ('00006', '00001', '2');
+INSERT INTO MaterialProyectos VALUES ('00007', '00003', '2');
+INSERT INTO MaterialProyectos VALUES ('00008', '00004', '2');
+INSERT INTO MaterialProyectos VALUES ('00009', '00006', '2');
+INSERT INTO MaterialProyectos VALUES ('00010', '00005', '2');
+
+INSERT INTO ProyectosMaquina VALUES ('00002', '00007', '05/10/2017', '05/10/2017');
+INSERT INTO ProyectosMaquina VALUES ('00008', '00002', '12/23/2015', '03/23/2015');
+INSERT INTO ProyectosMaquina VALUES ('00001', '00005', '05/12/2016', '08/12/2016');
+INSERT INTO ProyectosMaquina VALUES ('00006', '00009', '08/06/2017', '10/06/2017');
+INSERT INTO ProyectosMaquina VALUES ('00009', '00001', '10/04/2016', '12/04/2016');
+INSERT INTO ProyectosMaquina VALUES ('00003', '00010', '08/31/2015', '09/21/2015');
+INSERT INTO ProyectosMaquina VALUES ('00006', '00004', '01/09/2016', '03/09/2016');
+INSERT INTO ProyectosMaquina VALUES ('00001', '00003', '06/10/2017', '01/11/2017');
+INSERT INTO ProyectosMaquina VALUES ('00010', '00008', '09/15/2017', '07/06/2017');
+INSERT INTO ProyectosMaquina VALUES ('00004', '00004', '11/27/2017', '05/18/2017');
+
+INSERT INTO ProyectosUsuarios VALUES ('00001', '00002');
+INSERT INTO ProyectosUsuarios VALUES ('00004', '00004');
+INSERT INTO ProyectosUsuarios VALUES ('00001', '00006');
+INSERT INTO ProyectosUsuarios VALUES ('00009', '00001');
+INSERT INTO ProyectosUsuarios VALUES ('00002', '00007');
+INSERT INTO ProyectosUsuarios VALUES ('00001', '00005');
+INSERT INTO ProyectosUsuarios VALUES ('00008', '00009');
+INSERT INTO ProyectosUsuarios VALUES ('00003', '00001');
+INSERT INTO ProyectosUsuarios VALUES ('00002', '00003');
+INSERT INTO ProyectosUsuarios VALUES ('00001', '00010');
+INSERT INTO ProyectosUsuarios VALUES ('00010', '00002');
+INSERT INTO ProyectosUsuarios VALUES ('00008', '00005');
+INSERT INTO ProyectosUsuarios VALUES ('00006', '00009');
+INSERT INTO ProyectosUsuarios VALUES ('00003', '00010');
+INSERT INTO ProyectosUsuarios VALUES ('00003', '00005');
+INSERT INTO ProyectosUsuarios VALUES ('00001', '00008');
+INSERT INTO ProyectosUsuarios VALUES ('00010', '00010');
+INSERT INTO ProyectosUsuarios VALUES ('00007', '00001');
+INSERT INTO ProyectosUsuarios VALUES ('00005', '00008');
+INSERT INTO ProyectosUsuarios VALUES ('00001', '00001');
+
+INSERT INTO UsuariosEventos VALUES ('00010', '00002');
+INSERT INTO UsuariosEventos VALUES ('00004', '00004');
+INSERT INTO UsuariosEventos VALUES ('00001', '00006');
+INSERT INTO UsuariosEventos VALUES ('00009', '00001');
+INSERT INTO UsuariosEventos VALUES ('00002', '00004');
+INSERT INTO UsuariosEventos VALUES ('00001', '00010');
+INSERT INTO UsuariosEventos VALUES ('00008', '00009');
+INSERT INTO UsuariosEventos VALUES ('00003', '00001');
+INSERT INTO UsuariosEventos VALUES ('00002', '00003');
+INSERT INTO UsuariosEventos VALUES ('00001', '00002');
+INSERT INTO UsuariosEventos VALUES ('00010', '00010');
+INSERT INTO UsuariosEventos VALUES ('00008', '00010');
+INSERT INTO UsuariosEventos VALUES ('00001', '00003');
+INSERT INTO UsuariosEventos VALUES ('00004', '00006');
+INSERT INTO UsuariosEventos VALUES ('00008', '00005');
+INSERT INTO UsuariosEventos VALUES ('00001', '00008');
+INSERT INTO UsuariosEventos VALUES ('00010', '00003');
+INSERT INTO UsuariosEventos VALUES ('00007', '00001');
+INSERT INTO UsuariosEventos VALUES ('00005', '00008');
+INSERT INTO UsuariosEventos VALUES ('00009', '00007');
