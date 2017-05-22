@@ -50,7 +50,7 @@ public class VEventos extends JFrame {
 		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation(pantalla.width/3, pantalla.height/5);
 		//System.out.println("Ancho - " + pantalla.width/3);
-		//System.out.println("Alto - " + pantalla.height/6);
+		//System.out.println("Alto - " + pantalla.height/5);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 305, 448, 213);
