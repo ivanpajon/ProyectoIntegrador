@@ -10,7 +10,7 @@ public class Eventos {
 	
 	public Eventos(String cod_ev, String fecha, String mentor, String categoria, String duracion, String lugar) {
 		this.cod_ev = cod_ev;
-		this.fecha = fecha.substring(0, fecha.indexOf(' '));
+		this.fecha = fecha;
 		this.mentor = mentor;
 		this.categoria = categoria;
 		this.duracion = duracion;
@@ -36,6 +36,10 @@ public class Eventos {
 
 	public String getFecha() {
 		return fecha;
+	}
+	
+	public String getFechaFormatted() {
+		return fecha.substring(0, fecha.indexOf(' '));
 	}
 
 	public void setFecha(String fecha) {

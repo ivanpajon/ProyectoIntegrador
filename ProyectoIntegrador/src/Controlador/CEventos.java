@@ -39,7 +39,7 @@ public class CEventos implements ActionListener, MouseListener {
 	private void cargarEventos() {
 		for (Eventos e : eventos) {
 			DefaultTableModel tabla = (DefaultTableModel) vEventos.table.getModel();
-			tabla.addRow(new Object[] {e.getCod_ev(), e.getFecha(), e.getMentor(), e.getCategoria(), e.getDuracion(), e.getLugar()});
+			tabla.addRow(new Object[] {e.getCod_ev(), e.getFechaFormatted(), e.getMentor(), e.getCategoria(), e.getDuracion(), e.getLugar()});
 		}
 	}
 
