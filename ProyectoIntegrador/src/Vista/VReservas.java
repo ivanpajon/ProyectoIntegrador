@@ -8,8 +8,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Controlador.CReservas;
-import Entidades.ProyectosMaquina;
-
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
