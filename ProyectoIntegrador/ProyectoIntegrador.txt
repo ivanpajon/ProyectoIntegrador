@@ -47,13 +47,6 @@ CREATE TABLE Eventos (Cod_ev number(5) CONSTRAINT Cod_ev_pk PRIMARY KEY,
                       Categoria varchar2(30),
                       Duracion varchar2(30),
                       Lugar varchar2(30));
-CREATE TABLE Linea_Pedido (Cod_pd number(5),
-                           Cod_mt number(5),
-                           Cantidad number(5),
-                           Precio_unidad number(6,2),
-                           CONSTRAINT Linea_pedido_pk PRIMARY KEY (Cod_pd, Cod_mt),
-                           CONSTRAINT Cod_pd_Linea_pedido_fk FOREIGN KEY(Cod_pd) REFERENCES Pedidos(Cod_pd),
-                           CONSTRAINT Cod_mt_Linea_pedido_fk FOREIGN KEY(Cod_mt) REFERENCES Material(Cod_mt));
 CREATE TABLE MaterialProyectos (Cod_mt number(5),
                                 Cod_pr number(5),
                                 Cantidad number(5),
@@ -77,6 +70,13 @@ CREATE TABLE UsuariosEventos (ID_Soci number(5),
                               CONSTRAINT UsuariosEventos_pk PRIMARY KEY (ID_Soci, Cod_ev),
                               CONSTRAINT ID_Soci_UsuariosEventos_fk FOREIGN KEY(ID_Soci) REFERENCES Usuarios(ID_Soci),
                               CONSTRAINT Cod_ev_UsuariosEventos_fk FOREIGN KEY(Cod_ev) REFERENCES Eventos(Cod_ev));
+CREATE TABLE Linea_Pedido (Cod_pd number(5),
+                           Cod_mt number(5),
+                           Cantidad number(5),
+                           Precio_unidad number(6,2),
+                           CONSTRAINT Linea_pedido_pk PRIMARY KEY (Cod_pd, Cod_mt),
+                           CONSTRAINT Cod_pd_Linea_pedido_fk FOREIGN KEY(Cod_pd) REFERENCES Pedidos(Cod_pd),
+                           CONSTRAINT Cod_mt_Linea_pedido_fk FOREIGN KEY(Cod_mt) REFERENCES Material(Cod_mt));
 
 INSERT INTO Proveedor VALUES ('G3397769E', 'CADIELSA', 'illosummo-6060@hotmail.com', '608342057', 'Av. Zumalakarregi, 94', '37795', 'Repuesto de piezas móviles');
 INSERT INTO Proveedor VALUES ('F7093429D', 'EyjCerceda', 'adduttappossu-0735@gmail.com', '725236783', 'Rúa do Paseo, 64', '37220', 'Electrónica y sistemas');
