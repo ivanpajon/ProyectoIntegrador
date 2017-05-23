@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import Entidades.Maquina;
 import Entidades.Proyectos;
 import Entidades.ProyectosMaquina;
 
@@ -31,6 +32,25 @@ private Connection cn;
 		}
 		catch(Exception e) {
 			System.out.println("Error al consultar los proyectos - " + e);
+		}
+	}
+	
+	public void consultarMaquinas(ArrayList<Maquina> maquinas) {
+		try {
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery("select cod_ma from maquina");
+			
+			while(rs.next()) {
+				Maquina m = new Maquina();
+				m.setNombre(rs.getString(1));
+				maquinas.add(m);
+			}
+			
+			rs.close();
+			st.close();
+		}
+		catch(Exception e) {
+			System.out.println("Error al consultar las maquinas - " + e);
 		}
 	}
 	
