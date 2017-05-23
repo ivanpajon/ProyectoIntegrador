@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Controlador.CReservas;
+
 public class VReservas extends JFrame {
 	public JPanel contentPane;
 
