@@ -72,5 +72,6 @@ public class VInicio extends JFrame {
 	
 	public void setControlador(CInicio c) {
 		btnEventos.addActionListener(c);
+		btnReservas.addActionListener(c);
 	}
 }
