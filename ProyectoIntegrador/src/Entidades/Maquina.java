@@ -7,11 +7,17 @@ public class Maquina {
 	private String estado;
 	
 	public Maquina(String cod_ma, String nombre, String des, String estado) {
-		super();
 		this.cod_ma = cod_ma;
 		this.nombre = nombre;
 		this.des = des;
 		this.estado = estado;
+	}
+	
+	public Maquina() {
+		this.cod_ma = "";
+		this.nombre = "";
+		this.des = "";
+		this.estado = "";
 	}
 
 	public String getCod_ma() {
