@@ -17,11 +17,14 @@ private Connection cn;
 	public void consultarEventos(ArrayList<ProyectosMaquina> eventos) {
 		try {
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM PROYECTOSMAQUINA ORDER BY COD_PR");
+			ResultSet rs = st.executeQuery("SELECT * FROM PROYECTOSMAQUINA ORDER BY COD_PR, COD_MA");
 			
 			while(rs.next()) {
 				ProyectosMaquina pm = new ProyectosMaquina();
-				pm.setCod_ev(rs.getString(1));
+				pm.setCod_pr(rs.getString(1));
+				pm.setCod_ma(rs.getString(2));
+				pm.setFecha_inicio(rs.getString(3));
+				pm.setFecha_fin(rs.getString(4));
 				eventos.add(pm);
 			}
 			
