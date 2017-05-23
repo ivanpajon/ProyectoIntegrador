@@ -39,6 +39,10 @@ public class ProyectosMaquina {
 	public String getFecha_inicio() {
 		return fecha_inicio;
 	}
+	
+	public String getFecha_inicioFormatted() {
+		return fecha_inicio.substring(0, fecha_inicio.indexOf(' '));
+	}
 
 	public void setFecha_inicio(String fecha_inicio) {
 		this.fecha_inicio = fecha_inicio;
@@ -46,6 +50,10 @@ public class ProyectosMaquina {
 
 	public String getFecha_fin() {
 		return fecha_fin;
+	}
+	
+	public String getFecha_finFormatted() {
+		return fecha_fin.substring(0, fecha_fin.indexOf(' '));
 	}
 
 	public void setFecha_fin(String fecha_fin) {
