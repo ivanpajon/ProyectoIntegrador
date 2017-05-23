@@ -1,5 +1,8 @@
 package Vista;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -30,6 +33,11 @@ public class VReservas extends JFrame {
 		setContentPane(contentPane);
 		getContentPane().setLayout(null);
 		contentPane.setLayout(null);
+		
+		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation(pantalla.width/3, pantalla.height/5);
+		//System.out.println("Ancho - " + pantalla.width/3);
+		//System.out.println("Alto - " + pantalla.height/5);
 		
 		JLabel lblCodigoProyecto = new JLabel("Código Proyecto");
 		lblCodigoProyecto.setBounds(10, 25, 110, 14);
