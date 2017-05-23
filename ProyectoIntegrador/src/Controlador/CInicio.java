@@ -2,12 +2,10 @@ package Controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import Entidades.Eventos;
 import OracleAccess.OracleAccess;
 import Vista.VEventos;
 import Vista.VInicio;
+import Vista.VReservas;
 
 public class CInicio implements ActionListener {
 	VInicio vInicio;
@@ -24,6 +22,17 @@ public class CInicio implements ActionListener {
 		if (obj == vInicio.btnEventos) {
 			abrirEventos();
 		}
+		else if (obj == vInicio.btnReservas) {
+			abrirReservas();
+		}
+	}
+
+	private void abrirReservas() {
+		VReservas vReservas = new VReservas();
+		CReservas cReservas = new CReservas(vReservas, bbdd);
+		
+		vReservas.setControlador(cReservas);
+		vReservas.setVisible(true);
 	}
 
 	private void abrirEventos() {
