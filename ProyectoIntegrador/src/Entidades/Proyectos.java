@@ -7,10 +7,15 @@ public class Proyectos {
 	private String des;
 
 	public Proyectos(String cod_pr, String nombre, String des) {
-		super();
 		this.cod_pr = cod_pr;
 		this.nombre = nombre;
 		this.des = des;
+	}
+	
+	public Proyectos() {
+		this.cod_pr = "";
+		this.nombre = "";
+		this.des = "";
 	}
 
 	public String getCod_pr() {
