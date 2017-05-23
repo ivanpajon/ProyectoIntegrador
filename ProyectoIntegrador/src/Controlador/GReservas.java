@@ -57,7 +57,7 @@ private Connection cn;
 	public void consultarReservas(ArrayList<ProyectosMaquina> reservas, String nombreProyecto) {
 		try {
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("select nombre, pr.cod_pr, cod_ma, fecha_inicio,fecha_fin from proyectos pr,proyectosmaquina pm where pr.cod_pr=pm.cod_pr and nombre like '" + nombreProyecto + "'order by pr.cod_pr, cod_ma");
+			ResultSet rs = st.executeQuery("select nombre, pr.cod_pr, cod_ma, fecha_inicio,fecha_fin from proyectos pr, proyectosmaquina pm where pr.cod_pr=pm.cod_pr and nombre like '" + nombreProyecto + "'order by pr.cod_pr, cod_ma");
 			
 			while(rs.next()) {
 				ProyectosMaquina pm = new ProyectosMaquina();
@@ -80,7 +80,7 @@ private Connection cn;
 	public boolean comprobarFecha(String fechaInicio, String fechaFin) {
 		try {
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM proyectosmaquina WHERE fecha_inicio BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "'");
+			ResultSet rs = st.executeQuery("SELECT * FROM proyectosmaquina WHERE fecha_inicio BETWEEN TO_DATE('" + fechaInicio + "', 'YY-MM-DD') AND TO_DATE('" + fechaFin + "', 'YY-MM-DD')");
 			
 			if(rs.next()) {
 				System.out.println("La fecha no esta disponible");
