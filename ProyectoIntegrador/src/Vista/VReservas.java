@@ -16,15 +16,17 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JComboBox;
+import javax.swing.JButton;
 
 public class VReservas extends JFrame {
 	public JPanel contentPane;
 	public JTable table;
-	public JTextField tfCodigoMaquina;
 	public JTextField tfCodigoProyecto;
 	public JDateChooser dateChooserInicio;
 	public JDateChooser dateChooserFin;
-	public JComboBox<String> comboBox;
+	public JComboBox<String> cmbProyecto;
+	public JButton btnInsertar;
+	public JComboBox<String> cmbMaquina;
 
 	public VReservas() {
 		setTitle("Reservas");
@@ -88,23 +90,27 @@ public class VReservas extends JFrame {
 		dateChooserFin.setBounds(145, 172, 145, 20);
 		contentPane.add(dateChooserFin);
 		
-		tfCodigoMaquina = new JTextField();
-		tfCodigoMaquina.setBounds(145, 95, 145, 20);
-		contentPane.add(tfCodigoMaquina);
-		tfCodigoMaquina.setColumns(10);
-		
 		tfCodigoProyecto = new JTextField();
 		tfCodigoProyecto.setBounds(145, 60, 145, 20);
 		contentPane.add(tfCodigoProyecto);
 		tfCodigoProyecto.setColumns(10);
 		
-		comboBox = new JComboBox<String>();
-		comboBox.setBounds(145, 21, 145, 20);
-		contentPane.add(comboBox);
+		cmbProyecto = new JComboBox<String>();
+		cmbProyecto.setBounds(145, 21, 145, 20);
+		contentPane.add(cmbProyecto);
+		
+		btnInsertar = new JButton("Insertar");
+		btnInsertar.setBounds(315, 20, 89, 23);
+		contentPane.add(btnInsertar);
+		
+		cmbMaquina = new JComboBox();
+		cmbMaquina.setBounds(145, 95, 145, 20);
+		contentPane.add(cmbMaquina);
 	}
 	
 	public void setControlador(CReservas c) {
+		btnInsertar.addActionListener(c);
 		table.addMouseListener(c);
-		comboBox.addActionListener(c);
+		cmbProyecto.addActionListener(c);
 	}
 }
