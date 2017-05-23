@@ -11,6 +11,7 @@ import java.util.Date;
 
 import javax.swing.table.DefaultTableModel;
 
+import Entidades.Maquina;
 import Entidades.Proyectos;
 import Entidades.ProyectosMaquina;
 import OracleAccess.OracleAccess;
@@ -22,12 +23,14 @@ public class CReservas implements ActionListener, MouseListener {
 	OracleAccess bbdd;
 	ArrayList<ProyectosMaquina> reservas = new ArrayList<ProyectosMaquina>();
 	ArrayList<Proyectos> proyectos = new ArrayList<Proyectos>();
+	ArrayList<Maquina> maquinas = new ArrayList<Maquina>();
 	
 	public CReservas(VReservas vReservas, OracleAccess bbdd) {
 		this.vReservas = vReservas;
 		this.bbdd = bbdd;
 		this.gReservas = new GReservas(bbdd.getCn());
 		this.gReservas.consultarProyectos(proyectos);
+		this.gReservas.consultarMaquinas(maquinas);
 		
 		this.vReservas.tfCodigoProyecto.setEnabled(false);
 		
@@ -38,11 +41,18 @@ public class CReservas implements ActionListener, MouseListener {
 		this.vReservas.dateChooserFin.getJCalendar().setTodayButtonText("Hoy");
 		
 		cargarProyectos();
+		cargarMaquinas();
 	}
 	
 	private void cargarProyectos() {
 		for (Proyectos p : proyectos) {
-			vReservas.comboBox.addItem(p.getNombre());
+			vReservas.cmbProyecto.addItem(p.getNombre());
+		}
+	}
+	
+	private void cargarMaquinas() {
+		for (Maquina m : maquinas) {
+			vReservas.cmbMaquina.addItem(m.getNombre());
 		}
 	}
 	
@@ -63,8 +73,8 @@ public class CReservas implements ActionListener, MouseListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		
-		if (obj == vReservas.comboBox) {
-			String nombreProyecto = vReservas.comboBox.getSelectedItem().toString();
+		if (obj == vReservas.cmbProyecto) {
+			String nombreProyecto = vReservas.cmbProyecto.getSelectedItem().toString();
 			//System.out.println(nombreProyecto);
 			cargarReservas(nombreProyecto);
 		}
@@ -81,7 +91,8 @@ public class CReservas implements ActionListener, MouseListener {
 			int fila = vReservas.table.rowAtPoint(e.getPoint());
 			
 			vReservas.tfCodigoProyecto.setText(reservas.get(fila).getCod_pr());
-			vReservas.tfCodigoMaquina.setText(reservas.get(fila).getCod_ma());
+			vReservas.cmbMaquina.setSelectedIndex(Integer.parseInt(reservas.get(fila).getCod_ma())-1);
+			//vReservas.tfCodigoMaquina.setText(reservas.get(fila).getCod_ma());
 			
 			// Este try-catch hace la misma funcion que las lineas de arriba
 			try {
