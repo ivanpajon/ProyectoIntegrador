@@ -40,8 +40,8 @@ public class CReservas implements ActionListener, MouseListener {
 		this.vReservas.dateChooserFin.getJCalendar().setTodayButtonVisible(true);
 		this.vReservas.dateChooserFin.getJCalendar().setTodayButtonText("Hoy");
 		
-		cargarProyectos();
-		cargarMaquinas();
+		cargarProyectos();  // Se añaden los nombres de los proyectos existentes a su combobox
+		cargarMaquinas();  // Se añaden los codigos de las maquinas existentes a su combobox
 	}
 	
 	private void cargarProyectos() {
@@ -57,12 +57,14 @@ public class CReservas implements ActionListener, MouseListener {
 	}
 	
 	private void cargarReservas(String nombreProyecto) {
-		reservas.clear();
+		reservas.clear();  // Vaciamos el array
+		// Eliminamos una por una las filas de la tabla
 		while(vReservas.table.getRowCount()>0) {
 			DefaultTableModel tabla = (DefaultTableModel) vReservas.table.getModel();
 			tabla.removeRow(0);
         } 
-		gReservas.consultarReservas(reservas, nombreProyecto);
+		gReservas.consultarReservas(reservas, nombreProyecto);  // Cargamos las reservas que haya para el nombre de proyecto seleccionado en el array
+		// Mostramos las reservas en la tabla
 		for (ProyectosMaquina r : reservas) {
 			DefaultTableModel tabla = (DefaultTableModel) vReservas.table.getModel();
 			tabla.addRow(new Object[] {r.getNombre(), r.getCod_pr(), r.getCod_ma(), r.getFecha_inicioFormatted(), r.getFecha_finFormatted()});
@@ -92,9 +94,8 @@ public class CReservas implements ActionListener, MouseListener {
 			
 			vReservas.tfCodigoProyecto.setText(reservas.get(fila).getCod_pr());
 			vReservas.cmbMaquina.setSelectedIndex(Integer.parseInt(reservas.get(fila).getCod_ma())-1);
-			//vReservas.tfCodigoMaquina.setText(reservas.get(fila).getCod_ma());
 			
-			// Este try-catch hace la misma funcion que las lineas de arriba
+			// Este try-catch pone las fechas de la fila seleccionada en sus dateChooser
 			try {
 				Date dateInicio = new SimpleDateFormat("yyyy-MM-dd").parse(reservas.get(fila).getFecha_inicio());
 				vReservas.dateChooserInicio.setDate(dateInicio);
