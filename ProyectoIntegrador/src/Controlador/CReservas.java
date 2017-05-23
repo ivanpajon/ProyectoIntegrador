@@ -2,10 +2,10 @@ package Controlador;
 
 import java.util.ArrayList;
 
-import Entidades.Eventos;
+import javax.swing.table.DefaultTableModel;
+
 import Entidades.ProyectosMaquina;
 import OracleAccess.OracleAccess;
-import Vista.VEventos;
 import Vista.VReservas;
 
 public class CReservas {
@@ -17,13 +17,20 @@ public class CReservas {
 	public CReservas(VReservas vReservas, OracleAccess bbdd) {
 		this.vReservas = vReservas;
 		this.bbdd = bbdd;
-		this.gReservas = new GEventos(bbdd.getCn());
+		this.gReservas = new GReservas(bbdd.getCn());
 		this.gReservas.consultarEventos(reservas);
 		
-		this.vReservas.dateChooser.getJCalendar().setTodayButtonVisible(true);
-		this.vReservas.dateChooser.getJCalendar().setTodayButtonText("Hoy");
+		this.vReservas.dateChooserInicio.getJCalendar().setTodayButtonVisible(true);
+		this.vReservas.dateChooserInicio.getJCalendar().setTodayButtonText("Hoy");
 		
-		cargarEventos();
+		cargarReservas();
+	}
+	
+	private void cargarReservas() {
+		for (ProyectosMaquina r : reservas) {
+			DefaultTableModel tabla = (DefaultTableModel) vReservas.table.getModel();
+			tabla.addRow(new Object[] {r.getCod_pr(), r.getCod_ma(), r.getFecha_inicio(), r.getFecha_fin()});
+		}
 	}
 
 }
