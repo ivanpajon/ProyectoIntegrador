@@ -80,6 +80,21 @@ public class CReservas implements ActionListener, MouseListener {
 			//System.out.println(nombreProyecto);
 			cargarReservas(nombreProyecto);
 		}
+		else if (obj == vReservas.btnInsertar) {
+			insertarReserva();
+		}
+	}
+
+	private void insertarReserva() {
+		String fechaInicio = vReservas.dateChooserInicio.getJCalendar().getYearChooser().getYear() + "-" +
+                (vReservas.dateChooserInicio.getJCalendar().getMonthChooser().getMonth()+1) + "-" +
+                vReservas.dateChooserInicio.getJCalendar().getDayChooser().getDay();
+		String fechaFin = vReservas.dateChooserFin.getJCalendar().getYearChooser().getYear() + "-" +
+                (vReservas.dateChooserFin.getJCalendar().getMonthChooser().getMonth()+1) + "-" +
+                vReservas.dateChooserFin.getJCalendar().getDayChooser().getDay();
+		
+		boolean fechaInicioAvailable = gReservas.comprobarFecha(fechaInicio, fechaFin);
+		System.out.println(fechaInicioAvailable);
 	}
 
 	@Override
@@ -97,7 +112,7 @@ public class CReservas implements ActionListener, MouseListener {
 			
 			// Este try-catch pone las fechas de la fila seleccionada en sus dateChooser
 			try {
-				Date dateInicio = new SimpleDateFormat("yyyy-MM-dd").parse(reservas.get(fila).getFecha_inicio());
+				Date dateInicio = new SimpleDateFormat("yyyy-MM-dd").parse(reservas.get(fila).getFecha_inicioFormatted());
 				vReservas.dateChooserInicio.setDate(dateInicio);
 				
 				Date dateFin = new SimpleDateFormat("yyyy-MM-dd").parse(reservas.get(fila).getFecha_fin());
