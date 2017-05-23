@@ -133,7 +133,6 @@ public class VEventos extends JFrame {
 		contentPane.add(lblError);
 		
 		dateChooser = new JDateChooser();
-		dateChooser.setDateFormatString("YYYY/MM/dd");
 		dateChooser.setBounds(121, 56, 169, 20);
 		contentPane.add(dateChooser);
 	}
