@@ -69,7 +69,7 @@ public class VReservas extends JFrame {
 		contentPane.add(lblError);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 275, 414, 145);
+		scrollPane.setBounds(10, 256, 414, 175);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -107,5 +107,6 @@ public class VReservas extends JFrame {
 	
 	public void setControlador(CReservas c) {
 		table.addMouseListener(c);
+		comboBox.addActionListener(c);
 	}
 }
