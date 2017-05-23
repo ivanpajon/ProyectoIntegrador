@@ -11,6 +11,7 @@ import java.util.Date;
 
 import javax.swing.table.DefaultTableModel;
 
+import Entidades.Proyectos;
 import Entidades.ProyectosMaquina;
 import OracleAccess.OracleAccess;
 import Vista.VReservas;
@@ -20,12 +21,13 @@ public class CReservas implements ActionListener, MouseListener {
 	GReservas gReservas;
 	OracleAccess bbdd;
 	ArrayList<ProyectosMaquina> reservas = new ArrayList<ProyectosMaquina>();
+	ArrayList<Proyectos> proyectos = new ArrayList<Proyectos>();
 	
 	public CReservas(VReservas vReservas, OracleAccess bbdd) {
 		this.vReservas = vReservas;
 		this.bbdd = bbdd;
 		this.gReservas = new GReservas(bbdd.getCn());
-		this.gReservas.consultarEventos(reservas);
+		this.gReservas.consultarProyectos(proyectos);
 		
 		this.vReservas.tfCodigoProyecto.setEnabled(false);
 		
@@ -35,20 +37,37 @@ public class CReservas implements ActionListener, MouseListener {
 		this.vReservas.dateChooserFin.getJCalendar().setTodayButtonVisible(true);
 		this.vReservas.dateChooserFin.getJCalendar().setTodayButtonText("Hoy");
 		
-		cargarReservas();
+		cargarProyectos();
 	}
 	
-	private void cargarReservas() {
+	private void cargarProyectos() {
+		for (Proyectos p : proyectos) {
+			vReservas.comboBox.addItem(p.getNombre());
+		}
+	}
+	
+	private void cargarReservas(String nombreProyecto) {
+		reservas.clear();
+		while(vReservas.table.getRowCount()>0) {
+			DefaultTableModel tabla = (DefaultTableModel) vReservas.table.getModel();
+			tabla.removeRow(0);
+        } 
+		gReservas.consultarReservas(reservas, nombreProyecto);
 		for (ProyectosMaquina r : reservas) {
 			DefaultTableModel tabla = (DefaultTableModel) vReservas.table.getModel();
 			tabla.addRow(new Object[] {r.getNombre(), r.getCod_pr(), r.getCod_ma(), r.getFecha_inicioFormatted(), r.getFecha_finFormatted()});
-			vReservas.comboBox.add(r.getNombre());
 		}
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		Object obj = e.getSource();
 		
+		if (obj == vReservas.comboBox) {
+			String nombreProyecto = vReservas.comboBox.getSelectedItem().toString();
+			//System.out.println(nombreProyecto);
+			cargarReservas(nombreProyecto);
+		}
 	}
 
 	@Override
@@ -61,6 +80,7 @@ public class CReservas implements ActionListener, MouseListener {
 			
 			int fila = vReservas.table.rowAtPoint(e.getPoint());
 			
+			vReservas.comboBox.setSelectedIndex(fila);
 			vReservas.tfCodigoProyecto.setText(reservas.get(fila).getCod_pr());
 			vReservas.tfCodigoMaquina.setText(reservas.get(fila).getCod_ma());
 			
