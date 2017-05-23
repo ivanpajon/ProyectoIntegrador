@@ -21,9 +21,9 @@ private Connection cn;
 			ResultSet rs = st.executeQuery("select distinct nombre from proyectos");
 			
 			while(rs.next()) {
-				Proyectos pm = new Proyectos();
-				pm.setNombre(rs.getString(1));
-				proyectos.add(pm);
+				Proyectos p = new Proyectos();
+				p.setNombre(rs.getString(1));
+				proyectos.add(p);
 			}
 			
 			rs.close();
@@ -54,6 +54,30 @@ private Connection cn;
 		}
 		catch(Exception e) {
 			System.out.println("Error al consultar las reservas - " + e);
+		}
+	}
+	
+	public boolean comprobarFecha(String fechaInicio, String fechaFin) {
+		try {
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery("SELECT * FROM proyectosmaquina WHERE fecha_inicio BETWEEN '" + fechaInicio + "' AND '" + fechaFin + "'");
+			
+			if(rs.next()) {
+				System.out.println("La fecha no esta disponible");
+				rs.close();
+				st.close();
+				return false;
+			}
+			else {
+				System.out.println("La fecha esta disponible");
+				rs.close();
+				st.close();
+				return true;
+			}
+		}
+		catch(Exception e) {
+			System.out.println("Error al comprobar la fecha - " + e);
+			return false;
 		}
 	}
 }
