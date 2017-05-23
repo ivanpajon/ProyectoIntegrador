@@ -153,8 +153,7 @@ public class CEventos implements ActionListener, MouseListener {
 		if (this.vEventos.tfCodigo.getText().equals("") || fecha.equals("") || this.vEventos.tfMentor.getText().equals("") || this.vEventos.tfCategoria.getText().equals("") || this.vEventos.tfDuracion.getText().equals("") || this.vEventos.tfLugar.getText().equals("")) {
 			vEventos.lblError.setForeground(Color.RED);
 			vEventos.lblError.setText("Rellene todos los campos por favor");
-			System.out.println("Fecha:" + fecha);
-			//JOptionPane.showMessageDialog(null, "Rellene todos los campos por favor");
+			//System.out.println("Fecha:" + fecha);
 			limpiar();
 		}
 		else {
