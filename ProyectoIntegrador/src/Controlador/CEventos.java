@@ -30,6 +30,8 @@ public class CEventos implements ActionListener, MouseListener {
 		this.gEventos.consultarEventos(eventos);
 		
 		this.vEventos.tfCodigo.setEnabled(false);
+		this.vEventos.btnModificar.setEnabled(false);
+		this.vEventos.btnBorrar.setEnabled(false);
 		this.vEventos.dateChooser.getJCalendar().setTodayButtonVisible(true);
 		this.vEventos.dateChooser.getJCalendar().setTodayButtonText("Hoy");
 		
@@ -101,6 +103,10 @@ public class CEventos implements ActionListener, MouseListener {
 			tabla.setValueAt(e.getCategoria(), fila, 3);
 			tabla.setValueAt(e.getDuracion(), fila, 4);
 			tabla.setValueAt(e.getLugar(), fila, 5);
+			
+			limpiar();
+			this.vEventos.btnModificar.setEnabled(false);
+			this.vEventos.btnBorrar.setEnabled(false);
 		}
 	}
 
@@ -128,7 +134,10 @@ public class CEventos implements ActionListener, MouseListener {
 				vEventos.lblError.setForeground(Color.RED);
 				vEventos.lblError.setText("El evento no se pudo eliminar");
 			}
+			
 			limpiar();
+			this.vEventos.btnModificar.setEnabled(false);
+			this.vEventos.btnBorrar.setEnabled(false);
 		}
 	}
 
@@ -177,6 +186,9 @@ public class CEventos implements ActionListener, MouseListener {
 		Object obj = e.getSource();
 		
 		if (obj == vEventos.table) {
+			this.vEventos.btnModificar.setEnabled(true);
+			this.vEventos.btnBorrar.setEnabled(true);
+			
 			int fila = vEventos.table.rowAtPoint(e.getPoint());
 			
 			vEventos.tfCodigo.setText(eventos.get(fila).getCod_ev());
