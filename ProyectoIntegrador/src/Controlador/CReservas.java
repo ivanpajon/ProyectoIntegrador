@@ -80,7 +80,6 @@ public class CReservas implements ActionListener, MouseListener {
 			
 			int fila = vReservas.table.rowAtPoint(e.getPoint());
 			
-			vReservas.comboBox.setSelectedIndex(fila);
 			vReservas.tfCodigoProyecto.setText(reservas.get(fila).getCod_pr());
 			vReservas.tfCodigoMaquina.setText(reservas.get(fila).getCod_ma());
 			
