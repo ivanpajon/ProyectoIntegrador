@@ -29,7 +29,7 @@ public class CReservas {
 	private void cargarReservas() {
 		for (ProyectosMaquina r : reservas) {
 			DefaultTableModel tabla = (DefaultTableModel) vReservas.table.getModel();
-			tabla.addRow(new Object[] {r.getCod_pr(), r.getCod_ma(), r.getFecha_inicio(), r.getFecha_fin()});
+			tabla.addRow(new Object[] {r.getCod_pr(), r.getCod_ma(), r.getFecha_inicioFormatted(), r.getFecha_finFormatted()});
 		}
 	}
 
