@@ -7,11 +7,17 @@ public class ProyectosMaquina {
 	private String fecha_fin;
 	
 	public ProyectosMaquina(String cod_pr, String cod_ma, String fecha_inicio, String fecha_fin) {
-		super();
 		this.cod_pr = cod_pr;
 		this.cod_ma = cod_ma;
 		this.fecha_inicio = fecha_inicio;
 		this.fecha_fin = fecha_fin;
+	}
+	
+	public ProyectosMaquina() {
+		this.cod_pr = "";
+		this.cod_ma = "";
+		this.fecha_inicio = "";
+		this.fecha_fin = "";
 	}
 
 	public String getCod_pr() {
