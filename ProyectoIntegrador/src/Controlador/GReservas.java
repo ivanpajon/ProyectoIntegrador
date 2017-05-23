@@ -18,14 +18,11 @@ private Connection cn;
 	public void consultarProyectos(ArrayList<Proyectos> proyectos) {
 		try {
 			Statement st = cn.createStatement();
-			//ResultSet rs = st.executeQuery("SELECT * FROM PROYECTOSMAQUINA ORDER BY COD_PR, COD_MA");
-			ResultSet rs = st.executeQuery("select distinct * from proyectos");
+			ResultSet rs = st.executeQuery("select distinct nombre from proyectos");
 			
 			while(rs.next()) {
 				Proyectos pm = new Proyectos();
-				pm.setCod_pr(rs.getString(1));
-				pm.setNombre(rs.getString(2));
-				pm.setDes(rs.getString(3));
+				pm.setNombre(rs.getString(1));
 				proyectos.add(pm);
 			}
 			
