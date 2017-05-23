@@ -1,12 +1,14 @@
 package Entidades;
 
 public class ProyectosMaquina {
+	private String nombre;
 	private String cod_pr;
 	private String cod_ma;
 	private String fecha_inicio;
 	private String fecha_fin;
 	
-	public ProyectosMaquina(String cod_pr, String cod_ma, String fecha_inicio, String fecha_fin) {
+	public ProyectosMaquina(String nombre, String cod_pr, String cod_ma, String fecha_inicio, String fecha_fin) {
+		this.nombre = nombre;
 		this.cod_pr = cod_pr;
 		this.cod_ma = cod_ma;
 		this.fecha_inicio = fecha_inicio;
@@ -14,10 +16,19 @@ public class ProyectosMaquina {
 	}
 	
 	public ProyectosMaquina() {
+		this.nombre = "";
 		this.cod_pr = "";
 		this.cod_ma = "";
 		this.fecha_inicio = "";
 		this.fecha_fin = "";
+	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public String getCod_pr() {
