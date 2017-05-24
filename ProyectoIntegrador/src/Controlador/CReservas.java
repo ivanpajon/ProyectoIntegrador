@@ -1,5 +1,6 @@
 package Controlador;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -92,9 +93,19 @@ public class CReservas implements ActionListener, MouseListener {
 		String fechaFin = vReservas.dateChooserFin.getJCalendar().getYearChooser().getYear() + "-" +
                 (vReservas.dateChooserFin.getJCalendar().getMonthChooser().getMonth()+1) + "-" +
                 vReservas.dateChooserFin.getJCalendar().getDayChooser().getDay();
+		int codMaquina = Integer.parseInt(vReservas.cmbMaquina.getSelectedItem().toString());
 		
-		boolean fechaInicioAvailable = gReservas.comprobarFecha(fechaInicio, fechaFin);
-		System.out.println(fechaInicioAvailable);
+		boolean rangoAvailable = gReservas.comprobarFecha(fechaInicio, fechaFin, codMaquina);
+		System.out.println(codMaquina);
+		
+		if (rangoAvailable) {
+			vReservas.lblError.setForeground(Color.GREEN.darker());
+			vReservas.lblError.setText("Reserva añadida correctamente");
+		}
+		else {
+			vReservas.lblError.setForeground(Color.RED);
+			vReservas.lblError.setText("Existe una reserva para el rango de fechas seleccionado");
+		}
 	}
 
 	@Override
