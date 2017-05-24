@@ -27,6 +27,7 @@ public class VReservas extends JFrame {
 	public JComboBox<String> cmbProyecto;
 	public JButton btnInsertar;
 	public JComboBox<String> cmbMaquina;
+	public JLabel lblError;
 
 	public VReservas() {
 		setTitle("Reservas");
@@ -63,7 +64,7 @@ public class VReservas extends JFrame {
 		lblFechaFin.setBounds(10, 178, 110, 14);
 		contentPane.add(lblFechaFin);
 		
-		JLabel lblError = new JLabel("");
+		lblError = new JLabel("");
 		lblError.setHorizontalAlignment(SwingConstants.CENTER);
 		lblError.setBounds(10, 222, 414, 14);
 		contentPane.add(lblError);
