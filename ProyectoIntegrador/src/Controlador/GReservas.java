@@ -77,10 +77,10 @@ private Connection cn;
 		}
 	}
 	
-	public boolean comprobarFecha(String fechaInicio, String fechaFin) {
+	public boolean comprobarFecha(String fechaInicio, String fechaFin, int codMaquina) {
 		try {
 			Statement st = cn.createStatement();
-			ResultSet rs = st.executeQuery("SELECT * FROM proyectosmaquina WHERE fecha_inicio BETWEEN TO_DATE('" + fechaInicio + "', 'YY-MM-DD') AND TO_DATE('" + fechaFin + "', 'YY-MM-DD')");
+			ResultSet rs = st.executeQuery("SELECT * FROM proyectosmaquina WHERE fecha_inicio BETWEEN TO_DATE('" + fechaInicio + "', 'YY-MM-DD') AND TO_DATE('" + fechaFin + "', 'YY-MM-DD') AND COD_MA='" + codMaquina + "'");
 			
 			if(rs.next()) {
 				System.out.println("La fecha no esta disponible");
