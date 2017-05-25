@@ -96,7 +96,6 @@ public class CReservas implements ActionListener, MouseListener {
 		int codMaquina = Integer.parseInt(vReservas.cmbMaquina.getSelectedItem().toString());
 		
 		boolean rangoAvailable = gReservas.comprobarFecha(fechaInicio, fechaFin, codMaquina);
-		System.out.println(codMaquina);
 		
 		if (rangoAvailable) {
 			vReservas.lblError.setForeground(Color.GREEN.darker());
