@@ -28,6 +28,8 @@ public class VReservas extends JFrame {
 	public JButton btnInsertar;
 	public JComboBox<String> cmbMaquina;
 	public JLabel lblError;
+	public JButton btnBorrar;
+	public JButton btnModificar;
 
 	public VReservas() {
 		setTitle("Reservas");
@@ -101,16 +103,26 @@ public class VReservas extends JFrame {
 		contentPane.add(cmbProyecto);
 		
 		btnInsertar = new JButton("Insertar");
-		btnInsertar.setBounds(315, 20, 89, 23);
+		btnInsertar.setBounds(315, 20, 89, 35);
 		contentPane.add(btnInsertar);
 		
-		cmbMaquina = new JComboBox();
+		cmbMaquina = new JComboBox<String>();
 		cmbMaquina.setBounds(145, 95, 145, 20);
 		contentPane.add(cmbMaquina);
+		
+		btnBorrar = new JButton("Borrar");
+		btnBorrar.setBounds(315, 89, 89, 35);
+		contentPane.add(btnBorrar);
+		
+		btnModificar = new JButton("Modificar");
+		btnModificar.setBounds(315, 157, 89, 35);
+		contentPane.add(btnModificar);
 	}
 	
 	public void setControlador(CReservas c) {
 		btnInsertar.addActionListener(c);
+		btnBorrar.addActionListener(c);
+		btnModificar.addActionListener(c);
 		table.addMouseListener(c);
 		cmbProyecto.addActionListener(c);
 	}

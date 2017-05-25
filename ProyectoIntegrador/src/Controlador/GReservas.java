@@ -83,13 +83,13 @@ private Connection cn;
 			ResultSet rs = st.executeQuery("SELECT * FROM proyectosmaquina WHERE fecha_inicio BETWEEN TO_DATE('" + fechaInicio + "', 'YY-MM-DD') AND TO_DATE('" + fechaFin + "', 'YY-MM-DD') AND COD_MA='" + codMaquina + "'");
 			
 			if(rs.next()) {
-				System.out.println("La fecha no esta disponible");
+				//System.out.println("La fecha no esta disponible");
 				rs.close();
 				st.close();
 				return false;
 			}
 			else {
-				System.out.println("La fecha esta disponible");
+				//System.out.println("La fecha esta disponible");
 				rs.close();
 				st.close();
 				return true;
@@ -97,6 +97,58 @@ private Connection cn;
 		}
 		catch(Exception e) {
 			System.out.println("Error al comprobar la fecha - " + e);
+			return false;
+		}
+	}
+	
+	public void añadirReserva(ProyectosMaquina r) {
+		Statement st;
+		try {
+			st = cn.createStatement();
+			String insert = "INSERT INTO PROYECTOSMAQUINA VALUES('"+r.getCod_pr()+"', '"+r.getCod_ma()+"', TO_DATE('"+r.getFecha_inicio()+"', 'YY-MM-DD'), TO_DATE('"+r.getFecha_fin()+"', 'YY-MM-DD'))";
+			//System.out.println(insert);
+			
+			st.executeUpdate(insert);
+			st.close();
+		}
+		catch(Exception ex) {
+			System.out.println("Error añadiendo la reserva - " + ex);
+		}
+	}
+	
+	public void borrarReserva(String codProyecto, String codMaquina) {
+		Statement st;
+		try {
+			st = cn.createStatement();
+			String delete = "DELETE FROM PROYECTOSMAQUINA WHERE COD_PR='"+codProyecto+"' AND COD_MA='"+codMaquina+"'";
+			//System.out.println(delete);
+			
+			st.executeUpdate(delete);
+			st.close();
+		}
+		catch(Exception ex) {
+			System.out.println("Error borrando la reserva - " + ex);
+		}
+	}
+	
+	public boolean modificarReserva(ProyectosMaquina r) {
+		Statement st;
+		try {
+			st = cn.createStatement();
+			String update = "UPDATE PROYECTOSMAQUINA SET COD_PR='" + r.getCod_pr() + "'," +
+					"COD_MA='" + r.getCod_ma() + "'," +
+					"FECHA_INICIO=TO_DATE('" + r.getFecha_inicio() + "', 'YY-MM-DD')," +
+					"FECHA_FIN=TO_DATE('" + r.getFecha_fin() + "', 'YY-MM-DD')" +
+                    "WHERE COD_PR='" + r.getCod_pr() + "'" +
+                    "AND COD_MA='" + r.getCod_ma() + "'";
+			//System.out.println(update);
+			
+			st.executeUpdate(update);
+			st.close();
+			return true;
+		}
+		catch(Exception ex) {
+			System.out.println("Error borrando la reserva - " + ex);
 			return false;
 		}
 	}

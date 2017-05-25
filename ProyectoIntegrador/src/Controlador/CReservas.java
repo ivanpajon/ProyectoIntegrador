@@ -34,6 +34,7 @@ public class CReservas implements ActionListener, MouseListener {
 		this.gReservas.consultarMaquinas(maquinas);
 		
 		this.vReservas.tfCodigoProyecto.setEnabled(false);
+		this.vReservas.cmbMaquina.setEnabled(false);
 		
 		this.vReservas.dateChooserInicio.getJCalendar().setTodayButtonVisible(true);
 		this.vReservas.dateChooserInicio.getJCalendar().setTodayButtonText("Hoy");
@@ -82,8 +83,84 @@ public class CReservas implements ActionListener, MouseListener {
 			cargarReservas(nombreProyecto);
 		}
 		else if (obj == vReservas.btnInsertar) {
-			insertarReserva();
+			if (vReservas.btnInsertar.getText().equals("Insertar")) {
+				vReservas.btnInsertar.setText("Guardar");
+				vReservas.cmbMaquina.setEnabled(true);
+				vReservas.btnModificar.setEnabled(false);
+				vReservas.btnBorrar.setEnabled(false);
+			}
+			else {
+				vReservas.btnInsertar.setText("Insertar");
+				vReservas.cmbMaquina.setEnabled(false);
+				vReservas.btnModificar.setEnabled(true);
+				vReservas.btnBorrar.setEnabled(true);
+				insertarReserva();
+			}
 		}
+		else if (obj == vReservas.btnBorrar) {
+			borrarReserva();
+		}
+		else if (obj == vReservas.btnModificar) {
+			if (vReservas.btnModificar.getText().equals("Modificar")) {
+				vReservas.btnModificar.setText("Guardar");
+				vReservas.cmbMaquina.setEnabled(true);
+				vReservas.btnInsertar.setEnabled(false);
+				vReservas.btnBorrar.setEnabled(false);
+			}
+			else {
+				vReservas.btnModificar.setText("Modificar");
+				vReservas.cmbMaquina.setEnabled(false);
+				vReservas.btnInsertar.setEnabled(true);
+				vReservas.btnBorrar.setEnabled(true);
+				modificarReserva();
+			}
+		}
+	}
+
+	private void modificarReserva() {
+		String fechaInicio = vReservas.dateChooserInicio.getJCalendar().getYearChooser().getYear() + "-" +
+                (vReservas.dateChooserInicio.getJCalendar().getMonthChooser().getMonth()+1) + "-" +
+                vReservas.dateChooserInicio.getJCalendar().getDayChooser().getDay();
+		String fechaFin = vReservas.dateChooserFin.getJCalendar().getYearChooser().getYear() + "-" +
+                (vReservas.dateChooserFin.getJCalendar().getMonthChooser().getMonth()+1) + "-" +
+                vReservas.dateChooserFin.getJCalendar().getDayChooser().getDay();
+		
+		ProyectosMaquina r = new ProyectosMaquina();
+		r.setCod_ma(vReservas.cmbMaquina.getSelectedItem().toString());
+		r.setCod_pr(vReservas.tfCodigoProyecto.getText());
+		r.setFecha_fin(fechaFin);
+		r.setFecha_inicio(fechaInicio);
+		r.setNombre(vReservas.cmbProyecto.getSelectedItem().toString());
+		
+		if (gReservas.modificarReserva(r)) {
+			DefaultTableModel tabla = (DefaultTableModel) vReservas.table.getModel();
+			int fila = vReservas.table.getSelectedRow();
+			
+			reservas.set(fila, r);
+			tabla.setValueAt(r.getNombre(), fila, 0);
+			tabla.setValueAt(r.getCod_pr(), fila, 1);
+			tabla.setValueAt(r.getCod_ma(), fila, 2);
+			tabla.setValueAt(r.getFecha_inicio(), fila, 3);
+			tabla.setValueAt(r.getFecha_fin(), fila, 4);
+			
+			vReservas.lblError.setForeground(Color.GREEN.darker());
+			vReservas.lblError.setText("La reserva se ha modificado correctamente");
+		}
+		else {
+			vReservas.lblError.setForeground(Color.RED);
+			vReservas.lblError.setText("Error modificando la reserva");
+		}
+	}
+
+	private void borrarReserva() {
+		int fila = vReservas.table.getSelectedRow();
+		
+		reservas.remove(fila);
+		DefaultTableModel tabla = (DefaultTableModel) vReservas.table.getModel();
+		tabla.removeRow(fila);
+		gReservas.borrarReserva(vReservas.tfCodigoProyecto.getText(), vReservas.cmbMaquina.getSelectedItem().toString());
+		
+		this.vReservas.btnBorrar.setEnabled(false);
 	}
 
 	private void insertarReserva() {
@@ -94,10 +171,21 @@ public class CReservas implements ActionListener, MouseListener {
                 (vReservas.dateChooserFin.getJCalendar().getMonthChooser().getMonth()+1) + "-" +
                 vReservas.dateChooserFin.getJCalendar().getDayChooser().getDay();
 		int codMaquina = Integer.parseInt(vReservas.cmbMaquina.getSelectedItem().toString());
-		
 		boolean rangoAvailable = gReservas.comprobarFecha(fechaInicio, fechaFin, codMaquina);
 		
+		ProyectosMaquina r = new ProyectosMaquina();
+		r.setCod_ma(vReservas.cmbMaquina.getSelectedItem().toString());
+		r.setCod_pr(vReservas.tfCodigoProyecto.getText());
+		r.setFecha_fin(fechaFin);
+		r.setFecha_inicio(fechaInicio);
+		r.setNombre(vReservas.cmbProyecto.getSelectedItem().toString());
+		reservas.add(r);
+		
 		if (rangoAvailable) {
+			gReservas.añadirReserva(r);
+			DefaultTableModel tabla = (DefaultTableModel) vReservas.table.getModel();
+			tabla.addRow(new Object[] {r.getNombre(), r.getCod_pr(), r.getCod_ma(), r.getFecha_inicio(), r.getFecha_fin()});
+			
 			vReservas.lblError.setForeground(Color.GREEN.darker());
 			vReservas.lblError.setText("Reserva añadida correctamente");
 		}
@@ -112,10 +200,10 @@ public class CReservas implements ActionListener, MouseListener {
 		Object obj = e.getSource();
 		
 		if (obj == vReservas.table) {
-			//this.vReservas.btnModificar.setEnabled(true);
-			//this.vReservas.btnBorrar.setEnabled(true);
+			this.vReservas.btnBorrar.setEnabled(true);
+			this.vReservas.btnModificar.setEnabled(true);
 			
-			int fila = vReservas.table.rowAtPoint(e.getPoint());
+			int fila = vReservas.table.getSelectedRow();
 			
 			vReservas.tfCodigoProyecto.setText(reservas.get(fila).getCod_pr());
 			vReservas.cmbMaquina.setSelectedIndex(Integer.parseInt(reservas.get(fila).getCod_ma())-1);
