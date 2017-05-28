@@ -182,12 +182,23 @@ public class CReservas implements ActionListener, MouseListener {
 		reservas.add(r);
 		
 		if (rangoAvailable) {
-			gReservas.añadirReserva(r);
-			DefaultTableModel tabla = (DefaultTableModel) vReservas.table.getModel();
-			tabla.addRow(new Object[] {r.getNombre(), r.getCod_pr(), r.getCod_ma(), r.getFecha_inicio(), r.getFecha_fin()});
-			
-			vReservas.lblError.setForeground(Color.GREEN.darker());
-			vReservas.lblError.setText("Reserva añadida correctamente");
+			if (vReservas.cmbMaquina.getSelectedItem().toString().equals("") || vReservas.tfCodigoProyecto.getText().equals("") || fechaFin.equals("") || fechaInicio.equals("") || vReservas.cmbProyecto.getSelectedItem().toString().equals("")) {
+				vReservas.lblError.setForeground(Color.RED);
+				vReservas.lblError.setText("Rellene todos los campos por favor");
+			}
+			else {
+				if (gReservas.añadirReserva(r)) {
+					DefaultTableModel tabla = (DefaultTableModel) vReservas.table.getModel();
+					tabla.addRow(new Object[] {r.getNombre(), r.getCod_pr(), r.getCod_ma(), r.getFecha_inicio(), r.getFecha_fin()});
+					
+					vReservas.lblError.setForeground(Color.GREEN.darker());
+					vReservas.lblError.setText("Reserva añadida correctamente");
+				}
+				else {
+					vReservas.lblError.setForeground(Color.RED);
+					vReservas.lblError.setText("Ocurrió un error al guardar la reserva");
+				}
+			}
 		}
 		else {
 			vReservas.lblError.setForeground(Color.RED);

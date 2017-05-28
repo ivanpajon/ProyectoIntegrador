@@ -101,7 +101,7 @@ private Connection cn;
 		}
 	}
 	
-	public void añadirReserva(ProyectosMaquina r) {
+	public boolean añadirReserva(ProyectosMaquina r) {
 		Statement st;
 		try {
 			st = cn.createStatement();
@@ -110,9 +110,11 @@ private Connection cn;
 			
 			st.executeUpdate(insert);
 			st.close();
+			return true;
 		}
 		catch(Exception ex) {
 			System.out.println("Error añadiendo la reserva - " + ex);
+			return false;
 		}
 	}
 	
