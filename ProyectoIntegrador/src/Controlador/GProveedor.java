@@ -6,6 +6,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import Entidades.Proveedor;
+import Entidades.ProyectosMaquina;
 
 public class GProveedor {
 	private Connection cn;
@@ -36,6 +37,23 @@ public class GProveedor {
 		}
 		catch(Exception e) {
 			System.out.println("Error al consultar los proveedores - " + e);
+		}
+	}
+	
+	public boolean añadirProveedor(Proveedor p) {
+		Statement st;
+		try {
+			st = cn.createStatement();
+			String insert = "INSERT INTO PROVEEDOR VALUES('"+p.getCif()+"', '"+p.getNombre()+"', '"+p.getCorreo()+"', '"+p.getTfno()+"', '"+p.getDirec()+"', '"+p.getCod_po()+"', '"+p.getDesc()+"')";
+			//System.out.println(insert);
+			
+			st.executeUpdate(insert);
+			st.close();
+			return true;
+		}
+		catch(Exception ex) {
+			System.out.println("Error añadiendo el proveedor - " + ex);
+			return false;
 		}
 	}
 
