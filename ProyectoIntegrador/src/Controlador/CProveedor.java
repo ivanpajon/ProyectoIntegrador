@@ -36,32 +36,44 @@ public class CProveedor implements ActionListener, MouseListener {
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
+	public void mouseClicked(MouseEvent e) {
+		Object obj = e.getSource();
+		
+		if (obj == vProveedor.table) {
+			int fila = vProveedor.table.getSelectedRow();
+			
+			vProveedor.tfCif.setText(proveedores.get(fila).getCif());
+			vProveedor.tfNombre.setText(proveedores.get(fila).getNombre());
+			vProveedor.tfCorreo.setText(proveedores.get(fila).getCorreo());
+			vProveedor.tfTelefono.setText(proveedores.get(fila).getTfno());
+			vProveedor.tfDireccion.setText(proveedores.get(fila).getDirec());
+			vProveedor.tfCodigoPostal.setText(proveedores.get(fila).getCod_po());
+			vProveedor.tfDescripcion.setText(proveedores.get(fila).getDesc());
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
 		
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
+	public void mouseExited(MouseEvent e) {
 		
 	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
+	public void mousePressed(MouseEvent e) {
 		
 	}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
+	public void mouseReleased(MouseEvent e) {
 		
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent e) {
 		
 	}
 
