@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import OracleAccess.OracleAccess;
 import Vista.VEventos;
 import Vista.VInicio;
+import Vista.VProveedor;
 import Vista.VReservas;
 
 public class CInicio implements ActionListener {
@@ -25,6 +26,17 @@ public class CInicio implements ActionListener {
 		else if (obj == vInicio.btnReservas) {
 			abrirReservas();
 		}
+		else if (obj == vInicio.btnProveedor) {
+			abrirProveedores();
+		}
+	}
+
+	private void abrirProveedores() {
+		VProveedor vProveedor = new VProveedor();
+		CProveedor cProveedor = new CProveedor(vProveedor, bbdd);
+		
+		vProveedor.setControlador(cProveedor);
+		vProveedor.setVisible(true);
 	}
 
 	private void abrirReservas() {
