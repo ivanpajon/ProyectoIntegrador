@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+import javax.swing.JButton;
 
 public class VProveedor extends JFrame {
 
@@ -28,6 +29,9 @@ public class VProveedor extends JFrame {
 	public JTextField tfCodigoPostal;
 	public JTextArea tfDescripcion;
 	public JLabel lblError;
+	public JButton btnInsertar;
+	public JButton btnModificar;
+	public JButton btnBorrar;
 
 	public VProveedor() {
 		setTitle("Proveedores");
@@ -121,6 +125,18 @@ public class VProveedor extends JFrame {
 		tfDescripcion = new JTextArea();
 		scrollPane_1.setViewportView(tfDescripcion);
 		
+		btnInsertar = new JButton("Insertar");
+		btnInsertar.setBounds(342, 42, 89, 40);
+		contentPane.add(btnInsertar);
+		
+		btnModificar = new JButton("Modificar");
+		btnModificar.setBounds(342, 110, 89, 40);
+		contentPane.add(btnModificar);
+		
+		btnBorrar = new JButton("Borrar");
+		btnBorrar.setBounds(342, 177, 89, 40);
+		contentPane.add(btnBorrar);
+		
 		lblError = new JLabel("");
 		lblError.setHorizontalAlignment(SwingConstants.CENTER);
 		lblError.setBounds(10, 295, 474, 14);
@@ -129,5 +145,8 @@ public class VProveedor extends JFrame {
 	
 	public void setControlador(CProveedor c) {
 		table.addMouseListener(c);
+		btnInsertar.addActionListener(c);
+		btnModificar.addActionListener(c);
+		btnBorrar.addActionListener(c);
 	}
 }
