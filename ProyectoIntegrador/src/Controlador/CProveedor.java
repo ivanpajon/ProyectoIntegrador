@@ -1,5 +1,6 @@
 package Controlador;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -32,6 +33,68 @@ public class CProveedor implements ActionListener, MouseListener {
 		for (Proveedor p : proveedores) {
 			DefaultTableModel tabla = (DefaultTableModel) vProveedor.table.getModel();
 			tabla.addRow(new Object[] {p.getCif(), p.getNombre(), p.getCorreo(), p.getTfno(), p.getDirec(), p.getCod_po(), p.getDesc()});
+		}
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Object obj = e.getSource();
+		
+		if (obj == vProveedor.btnInsertar) {
+			if (vProveedor.btnInsertar.getText().equals("Insertar")) {
+				vProveedor.tfCif.setEnabled(true);
+				vProveedor.btnInsertar.setText("Guardar");
+				vProveedor.btnModificar.setEnabled(false);
+				vProveedor.btnBorrar.setEnabled(false);
+				limpiar();
+			}
+			else {
+				vProveedor.tfCif.setEnabled(false);
+				vProveedor.btnInsertar.setText("Insertar");
+				vProveedor.btnModificar.setEnabled(true);
+				vProveedor.btnBorrar.setEnabled(true);
+				insertarProveedor();
+			}
+		}
+	}
+
+	private void limpiar() {
+		vProveedor.tfCif.setText("");
+		vProveedor.tfNombre.setText("");
+		vProveedor.tfCorreo.setText("");
+		vProveedor.tfTelefono.setText("");
+		vProveedor.tfDireccion.setText("");
+		vProveedor.tfCodigoPostal.setText("");
+		vProveedor.tfDescripcion.setText("");
+	}
+
+	private void insertarProveedor() {
+		Proveedor p = new Proveedor();
+		p.setCif(vProveedor.tfCif.getText());
+		p.setNombre(vProveedor.tfNombre.getText());
+		p.setCorreo(vProveedor.tfCorreo.getText());
+		p.setTfno(vProveedor.tfTelefono.getText());
+		p.setDirec(vProveedor.tfDireccion.getText());
+		p.setCod_po(vProveedor.tfCodigoPostal.getText());
+		p.setDesc(vProveedor.tfDescripcion.getText());
+		proveedores.add(p);
+		
+		if (!vProveedor.tfCif.getText().equals("") || !vProveedor.tfNombre.getText().equals("") || !vProveedor.tfCorreo.getText().equals("") || !vProveedor.tfTelefono.getText().equals("") || !vProveedor.tfDireccion.getText().equals("") || !vProveedor.tfCodigoPostal.getText().equals("") || !vProveedor.tfDescripcion.getText().equals("")) {
+			if (gProveedor.añadirProveedor(p)) {
+				DefaultTableModel tabla = (DefaultTableModel) vProveedor.table.getModel();
+				tabla.addRow(new Object[] {p.getCif(), p.getNombre(), p.getCorreo(), p.getTfno(), p.getDirec(), p.getCod_po(), p.getDesc()});
+				
+				vProveedor.lblError.setForeground(Color.GREEN.darker());
+				vProveedor.lblError.setText("Proveedor añadido correctamente");
+			}
+			else {
+				vProveedor.lblError.setForeground(Color.RED);
+				vProveedor.lblError.setText("Error añadiendo el proveedor, revise los campos por favor");
+			}
+		}
+		else {
+			vProveedor.lblError.setForeground(Color.RED);
+			vProveedor.lblError.setText("Rellene todos los campos por favor");
 		}
 	}
 
@@ -71,10 +134,4 @@ public class CProveedor implements ActionListener, MouseListener {
 	public void mouseReleased(MouseEvent e) {
 		
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-	}
-
 }
