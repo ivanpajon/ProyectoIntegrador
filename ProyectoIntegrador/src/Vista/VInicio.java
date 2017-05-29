@@ -53,7 +53,7 @@ public class VInicio extends JFrame {
 		btnPedidos.setBounds(30, 166, 150, 40);
 		contentPane.add(btnPedidos);
 		
-		btnProveedor = new JButton("Proveedor");
+		btnProveedor = new JButton("Proveedores");
 		btnProveedor.setBounds(205, 13, 150, 40);
 		contentPane.add(btnProveedor);
 		
