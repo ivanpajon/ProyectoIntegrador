@@ -11,7 +11,6 @@ public class Proveedor {
 	private String desc;
 
 	public Proveedor(String cif, String nombre, String correo, String tfno, String direc, String cod_po, String desc) {
-		super();
 		this.cif = cif;
 		this.nombre = nombre;
 		this.correo = correo;
@@ -19,6 +18,16 @@ public class Proveedor {
 		this.direc = direc;
 		this.cod_po = cod_po;
 		this.desc = desc;
+	}
+	
+	public Proveedor() {
+		this.cif = "";
+		this.nombre = "";
+		this.correo = "";
+		this.tfno = "";
+		this.direc = "";
+		this.cod_po = "";
+		this.desc = "";
 	}
 
 	public String getCif() {
