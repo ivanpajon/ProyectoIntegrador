@@ -7,13 +7,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Controlador.CProveedor;
+
 public class VProveedor extends JFrame {
 
 	public JPanel contentPane;
 	public JTable table;
 
 	public VProveedor() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 510, 465);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -29,9 +31,13 @@ public class VProveedor extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"CIF", "Nombre", "Correo", "Tel\u00E9fono", "Direcci\u00F3n", "C\u00F3digo Postal", "Descripci\u00F3n"
+				"CIF", "Nombre", "Correo", "Teléfono", "Dirección", "Código Postal", "Descripción"
 			}
 		));
 		scrollPane.setViewportView(table);
+	}
+	
+	public void setControlador(CProveedor c) {
+		
 	}
 }
