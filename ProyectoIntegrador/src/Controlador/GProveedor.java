@@ -6,7 +6,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import Entidades.Proveedor;
-import Entidades.ProyectosMaquina;
 
 public class GProveedor {
 	private Connection cn;
@@ -37,6 +36,30 @@ public class GProveedor {
 		}
 		catch(Exception e) {
 			System.out.println("Error al consultar los proveedores - " + e);
+		}
+	}
+	
+	public boolean modificarProveedor(Proveedor p) {
+		Statement st;
+		try {
+			st = cn.createStatement();
+			String update = "UPDATE PROVEEDOR SET CIF='"+p.getCif()+"'," +
+					"NOMBRE='"+p.getNombre()+"'," +
+					"CORREO='"+p.getCorreo()+"'," +
+					"TFNO='"+p.getTfno()+"'," +
+					"DIREC='"+p.getDirec()+"'," +
+					"COD_PO='"+p.getCod_po()+"'," +
+					"DES='"+p.getDesc()+"' " +
+                    "WHERE CIF='"+p.getCif()+"'";
+			//System.out.println(update);
+			
+			st.executeUpdate(update);
+			st.close();
+			return true;
+		}
+		catch(Exception ex) {
+			System.out.println("Error modificando el proveedor - " + ex);
+			return false;
 		}
 	}
 	
