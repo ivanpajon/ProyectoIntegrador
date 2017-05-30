@@ -150,7 +150,7 @@ private Connection cn;
 			return true;
 		}
 		catch(Exception ex) {
-			System.out.println("Error borrando la reserva - " + ex);
+			System.out.println("Error modificando la reserva - " + ex);
 			return false;
 		}
 	}
