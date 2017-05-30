@@ -39,6 +39,23 @@ public class GProveedor {
 		}
 	}
 	
+	public boolean borrarProveedor(String cif) {
+		Statement st;
+		try {
+			st = cn.createStatement();
+			String delete = "DELETE FROM PROVEEDOR WHERE CIF='"+cif+"'";
+			//System.out.println(delete);
+			
+			st.executeUpdate(delete);
+			st.close();
+			return true;
+		}
+		catch(Exception ex) {
+			System.out.println("Error borrando el proveedor - " + ex);
+			return false;
+		}
+	}
+	
 	public boolean modificarProveedor(Proveedor p) {
 		Statement st;
 		try {
