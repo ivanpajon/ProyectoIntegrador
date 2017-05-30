@@ -45,7 +45,7 @@ public class VProveedor extends JFrame {
 		setLocation(pantalla.width/3, pantalla.height/5);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 320, 474, 166);
+		scrollPane.setBounds(10, 295, 474, 191);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -131,7 +131,7 @@ public class VProveedor extends JFrame {
 		
 		lblError = new JLabel("");
 		lblError.setHorizontalAlignment(SwingConstants.CENTER);
-		lblError.setBounds(10, 295, 474, 14);
+		lblError.setBounds(10, 255, 474, 14);
 		contentPane.add(lblError);
 		
 		tfDescripcion = new JTextField();
