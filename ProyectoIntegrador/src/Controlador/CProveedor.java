@@ -56,6 +56,54 @@ public class CProveedor implements ActionListener, MouseListener {
 				insertarProveedor();
 			}
 		}
+		else if (obj == vProveedor.btnModificar) {
+			if (vProveedor.btnModificar.getText().equals("Modificar")) {
+				vProveedor.tfCif.setEnabled(true);
+				vProveedor.btnInsertar.setEnabled(false);
+				vProveedor.btnBorrar.setEnabled(false);
+				vProveedor.btnModificar.setText("Guardar");
+			}
+			else {
+				vProveedor.tfCif.setEnabled(false);
+				vProveedor.btnInsertar.setEnabled(true);
+				vProveedor.btnBorrar.setEnabled(true);
+				vProveedor.btnModificar.setText("Modificar");
+				modificarProveedor();
+				limpiar();
+			}
+		}
+	}
+
+	private void modificarProveedor() {
+		Proveedor p = new Proveedor();
+		p.setCif(vProveedor.tfCif.getText());
+		p.setNombre(vProveedor.tfNombre.getText());
+		p.setCorreo(vProveedor.tfCorreo.getText());
+		p.setTfno(vProveedor.tfTelefono.getText());
+		p.setDirec(vProveedor.tfDireccion.getText());
+		p.setCod_po(vProveedor.tfCodigoPostal.getText());
+		p.setDesc(vProveedor.tfDescripcion.getText());
+		
+		if (gProveedor.modificarProveedor(p)) {
+			DefaultTableModel tabla = (DefaultTableModel) vProveedor.table.getModel();
+			int fila = vProveedor.table.getSelectedRow();
+			
+			proveedores.set(fila, p);
+			tabla.setValueAt(p.getCif(), fila, 0);
+			tabla.setValueAt(p.getNombre(), fila, 1);
+			tabla.setValueAt(p.getCorreo(), fila, 2);
+			tabla.setValueAt(p.getTfno(), fila, 3);
+			tabla.setValueAt(p.getDirec(), fila, 4);
+			tabla.setValueAt(p.getCod_po(), fila, 5);
+			tabla.setValueAt(p.getDesc(), fila, 6);
+			
+			vProveedor.lblError.setForeground(Color.GREEN.darker());
+			vProveedor.lblError.setText("Proveedor modificado correctamente");
+		}
+		else {
+			vProveedor.lblError.setForeground(Color.RED);
+			vProveedor.lblError.setText("Error modificando el proveedor, revise los campos por favor");
+		}
 	}
 
 	private void limpiar() {
@@ -77,12 +125,12 @@ public class CProveedor implements ActionListener, MouseListener {
 		p.setDirec(vProveedor.tfDireccion.getText());
 		p.setCod_po(vProveedor.tfCodigoPostal.getText());
 		p.setDesc(vProveedor.tfDescripcion.getText());
-		proveedores.add(p);
 		
 		if (!vProveedor.tfCif.getText().equals("") || !vProveedor.tfNombre.getText().equals("") || !vProveedor.tfCorreo.getText().equals("") || !vProveedor.tfTelefono.getText().equals("") || !vProveedor.tfDireccion.getText().equals("") || !vProveedor.tfCodigoPostal.getText().equals("") || !vProveedor.tfDescripcion.getText().equals("")) {
 			if (gProveedor.añadirProveedor(p)) {
 				DefaultTableModel tabla = (DefaultTableModel) vProveedor.table.getModel();
 				tabla.addRow(new Object[] {p.getCif(), p.getNombre(), p.getCorreo(), p.getTfno(), p.getDirec(), p.getCod_po(), p.getDesc()});
+				proveedores.add(p);
 				
 				vProveedor.lblError.setForeground(Color.GREEN.darker());
 				vProveedor.lblError.setText("Proveedor añadido correctamente");
