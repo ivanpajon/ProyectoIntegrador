@@ -72,6 +72,27 @@ public class CProveedor implements ActionListener, MouseListener {
 				limpiar();
 			}
 		}
+		else if (obj == vProveedor.btnBorrar) {
+			eliminarProveedor();
+			limpiar();
+		}
+	}
+
+	private void eliminarProveedor() {
+		if (gProveedor.borrarProveedor(vProveedor.tfCif.getText())) {
+			DefaultTableModel tabla = (DefaultTableModel) vProveedor.table.getModel();
+			int fila = vProveedor.table.getSelectedRow();
+			
+			proveedores.remove(fila);
+			tabla.removeRow(fila);
+			
+			vProveedor.lblError.setForeground(Color.GREEN.darker());
+			vProveedor.lblError.setText("Proveedor eliminado correctamente");
+		}
+		else {
+			vProveedor.lblError.setForeground(Color.RED);
+			vProveedor.lblError.setText("Error eliminando el proveedor, revise los campos por favor");
+		}
 	}
 
 	private void modificarProveedor() {
