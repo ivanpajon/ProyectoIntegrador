@@ -13,7 +13,6 @@ import javax.swing.table.DefaultTableModel;
 import Controlador.CProveedor;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
@@ -27,11 +26,11 @@ public class VProveedor extends JFrame {
 	public JTextField tfTelefono;
 	public JTextField tfDireccion;
 	public JTextField tfCodigoPostal;
-	public JTextArea tfDescripcion;
 	public JLabel lblError;
 	public JButton btnInsertar;
 	public JButton btnModificar;
 	public JButton btnBorrar;
+	public JTextField tfDescripcion;
 
 	public VProveedor() {
 		setTitle("Proveedores");
@@ -118,13 +117,6 @@ public class VProveedor extends JFrame {
 		contentPane.add(tfCodigoPostal);
 		tfCodigoPostal.setColumns(10);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(104, 215, 160, 70);
-		contentPane.add(scrollPane_1);
-		
-		tfDescripcion = new JTextArea();
-		scrollPane_1.setViewportView(tfDescripcion);
-		
 		btnInsertar = new JButton("Insertar");
 		btnInsertar.setBounds(342, 42, 89, 40);
 		contentPane.add(btnInsertar);
@@ -141,6 +133,11 @@ public class VProveedor extends JFrame {
 		lblError.setHorizontalAlignment(SwingConstants.CENTER);
 		lblError.setBounds(10, 295, 474, 14);
 		contentPane.add(lblError);
+		
+		tfDescripcion = new JTextField();
+		tfDescripcion.setBounds(104, 212, 160, 20);
+		contentPane.add(tfDescripcion);
+		tfDescripcion.setColumns(10);
 	}
 	
 	public void setControlador(CProveedor c) {
