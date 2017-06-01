@@ -111,11 +111,11 @@ public class VReservas extends JFrame {
 		contentPane.add(cmbMaquina);
 		
 		btnBorrar = new JButton("Borrar");
-		btnBorrar.setBounds(315, 89, 89, 35);
+		btnBorrar.setBounds(315, 157, 89, 35);
 		contentPane.add(btnBorrar);
 		
 		btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(315, 157, 89, 35);
+		btnModificar.setBounds(315, 88, 89, 35);
 		contentPane.add(btnModificar);
 	}
 	
