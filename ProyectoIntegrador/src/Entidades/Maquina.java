@@ -4,20 +4,20 @@ public class Maquina {
 	private String cod_ma;
 	private String nombre;
 	private String des;
-	private String estado;
+	private String tipo;
 	
-	public Maquina(String cod_ma, String nombre, String des, String estado) {
+	public Maquina(String cod_ma, String nombre, String des, String tipo) {
 		this.cod_ma = cod_ma;
 		this.nombre = nombre;
 		this.des = des;
-		this.estado = estado;
+		this.tipo = tipo;
 	}
 	
 	public Maquina() {
 		this.cod_ma = "";
 		this.nombre = "";
 		this.des = "";
-		this.estado = "";
+		this.tipo = "";
 	}
 
 	public String getCod_ma() {
@@ -44,11 +44,11 @@ public class Maquina {
 		this.des = des;
 	}
 
-	public String getEstado() {
-		return estado;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 }
