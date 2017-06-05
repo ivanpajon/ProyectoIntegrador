@@ -179,7 +179,6 @@ public class CReservas implements ActionListener, MouseListener {
 		r.setFecha_fin(fechaFin);
 		r.setFecha_inicio(fechaInicio);
 		r.setNombre(vReservas.cmbProyecto.getSelectedItem().toString());
-		reservas.add(r);
 		
 		if (rangoAvailable) {
 			if (vReservas.cmbMaquina.getSelectedItem().toString().equals("") || vReservas.tfCodigoProyecto.getText().equals("") || fechaFin.equals("") || fechaInicio.equals("") || vReservas.cmbProyecto.getSelectedItem().toString().equals("")) {
@@ -190,6 +189,7 @@ public class CReservas implements ActionListener, MouseListener {
 				if (gReservas.añadirReserva(r)) {
 					DefaultTableModel tabla = (DefaultTableModel) vReservas.table.getModel();
 					tabla.addRow(new Object[] {r.getNombre(), r.getCod_pr(), r.getCod_ma(), r.getFecha_inicio(), r.getFecha_fin()});
+					reservas.add(r);
 					
 					vReservas.lblError.setForeground(Color.GREEN.darker());
 					vReservas.lblError.setText("Reserva añadida correctamente");
