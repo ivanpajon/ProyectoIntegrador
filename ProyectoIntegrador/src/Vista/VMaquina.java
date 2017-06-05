@@ -80,7 +80,7 @@ public class VMaquina extends JFrame {
 		
 		lblError = new JLabel("");
 		lblError.setHorizontalAlignment(SwingConstants.CENTER);
-		lblError.setBounds(10, 148, 414, 14);
+		lblError.setBounds(10, 160, 414, 14);
 		contentPane.add(lblError);
 		
 		JScrollPane scrollPane = new JScrollPane();
