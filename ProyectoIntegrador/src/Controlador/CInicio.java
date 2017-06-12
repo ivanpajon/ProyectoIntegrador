@@ -7,6 +7,7 @@ import Vista.VEventos;
 import Vista.VInicio;
 import Vista.VMaquina;
 import Vista.VProveedor;
+import Vista.VProyectos;
 import Vista.VReservas;
 
 public class CInicio implements ActionListener {
@@ -33,6 +34,17 @@ public class CInicio implements ActionListener {
 		else if (obj == vInicio.btnMaquina) {
 			abrirMaquinas();
 		}
+		else if (obj == vInicio.btnProyectos) {
+			abrirProyectos();
+		}
+	}
+
+	private void abrirProyectos() {
+		VProyectos vProyectos = new VProyectos();
+		CProyectos cProyectos = new CProyectos(vProyectos, bbdd);
+		
+		vProyectos.setControlador(cProyectos);
+		vProyectos.setVisible(true);
 	}
 
 	private void abrirMaquinas() {
