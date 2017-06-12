@@ -130,7 +130,6 @@ public class CMaquina implements ActionListener, MouseListener {
 				vMaquina.lblError.setText("Ocurrió un error al guardar la maquina");
 			}
 		}
-		
 	}
 
 	private void limpiar() {
