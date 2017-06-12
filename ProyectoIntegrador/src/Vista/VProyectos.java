@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import Controlador.CProyectos;
+import javax.swing.JButton;
 
 public class VProyectos extends JFrame {
 
@@ -20,6 +21,9 @@ public class VProyectos extends JFrame {
 	public JTextField tfDescripcion;
 	public JLabel lblError;
 	public JTable table;
+	public JButton btnInsertar;
+	public JButton btnModificar;
+	public JButton btnBorrar;
 
 	public VProyectos() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -74,12 +78,24 @@ public class VProyectos extends JFrame {
 			}
 		));
 		scrollPane.setViewportView(table);
+		
+		btnInsertar = new JButton("Insertar");
+		btnInsertar.setBounds(335, 26, 89, 23);
+		contentPane.add(btnInsertar);
+		
+		btnBorrar = new JButton("Borrar");
+		btnBorrar.setBounds(335, 96, 89, 23);
+		contentPane.add(btnBorrar);
+		
+		btnModificar = new JButton("Modificar");
+		btnModificar.setBounds(335, 61, 89, 23);
+		contentPane.add(btnModificar);
 	}
 
 	public void setControlador(CProyectos c) {
 		table.addMouseListener(c);
-		//btnInsertar.addActionListener(c);
-		//btnModificar.addActionListener(c);
-		//btnBorrar.addActionListener(c);
+		btnInsertar.addActionListener(c);
+		btnModificar.addActionListener(c);
+		btnBorrar.addActionListener(c);
 	}
 }
