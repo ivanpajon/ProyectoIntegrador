@@ -6,6 +6,7 @@ import OracleAccess.OracleAccess;
 import Vista.VEventos;
 import Vista.VInicio;
 import Vista.VMaquina;
+import Vista.VMaterial;
 import Vista.VProveedor;
 import Vista.VProyectos;
 import Vista.VReservas;
@@ -37,6 +38,17 @@ public class CInicio implements ActionListener {
 		else if (obj == vInicio.btnProyectos) {
 			abrirProyectos();
 		}
+		else if (obj == vInicio.btnMaterial) {
+			abrirMateriales();
+		}
+	}
+
+	private void abrirMateriales() {
+		VMaterial vMaterial = new VMaterial();
+		CMaterial cMaterial = new CMaterial(vMaterial, bbdd);
+		
+		vMaterial.setControlador(cMaterial);
+		vMaterial.setVisible(true);
 	}
 
 	private void abrirProyectos() {
