@@ -87,9 +87,10 @@ public class CMaterial implements ActionListener, MouseListener {
 			vM.textFieldCodigo.setText(""+obj);
 			rellenarTabla();
 		}else if(obj == vM.btnSalir){
-			vM.dispose();
 			conexionBBDD.cerrarBBDD();
-	}
+			System.exit(0);  // Para evitar que intentes abrir otra ventana, ya que la conexion BBDD se cerro
+			//vM.dispose();
+		}
 	}
 		private void modificar() {
 			int fila= vM.table.getSelectedRow();
