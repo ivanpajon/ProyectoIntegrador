@@ -52,30 +52,30 @@ CREATE TABLE Linea_Pedido (Cod_pd number(5),
                            Cantidad number(5),
                            Precio_unidad number(6,2),
                            CONSTRAINT Linea_pedido_pk PRIMARY KEY (Cod_pd, Cod_mt),
-                           CONSTRAINT Cod_pd_Linea_pedido_fk FOREIGN KEY(Cod_pd) REFERENCES Pedidos(Cod_pd),
-                           CONSTRAINT Cod_mt_Linea_pedido_fk FOREIGN KEY(Cod_mt) REFERENCES Material(Cod_mt));
+                           CONSTRAINT Cod_pd_Linea_pedido_fk FOREIGN KEY(Cod_pd) REFERENCES Pedidos(Cod_pd) ON DELETE SET NULL,
+                           CONSTRAINT Cod_mt_Linea_pedido_fk FOREIGN KEY(Cod_mt) REFERENCES Material(Cod_mt) ON DELETE SET NULL);
 CREATE TABLE MaterialProyectos (Cod_mt number(5),
                                 Cod_pr number(5),
                                 Cantidad number(5),
                                 CONSTRAINT MaterialProyectos_pk PRIMARY KEY (Cod_mt, Cod_pr),
-                                CONSTRAINT Cod_mt_MaterialProyectos_fk FOREIGN KEY(Cod_mt) REFERENCES Material(Cod_mt),
-                                CONSTRAINT Cod_pr_MaterialProyectos_fk FOREIGN KEY(Cod_pr) REFERENCES Proyectos(Cod_pr));
+                                CONSTRAINT Cod_mt_MaterialProyectos_fk FOREIGN KEY(Cod_mt) REFERENCES Material(Cod_mt) ON DELETE SET NULL,
+                                CONSTRAINT Cod_pr_MaterialProyectos_fk FOREIGN KEY(Cod_pr) REFERENCES Proyectos(Cod_pr) ON DELETE SET NULL);
 CREATE TABLE ProyectosMaquina (Cod_pr number(5),
                                Cod_ma number(5),
                                Fecha_inicio DATE,
                                Fecha_fin DATE,
                                CONSTRAINT ProyectosMaquina_pk PRIMARY KEY (Cod_pr, Cod_ma),
-                               CONSTRAINT Cod_pr_ProyectosMaquina_fk FOREIGN KEY(Cod_pr) REFERENCES Proyectos(Cod_pr),
-                               CONSTRAINT Cod_ma_ProyectosMaquina_fk FOREIGN KEY(Cod_ma) REFERENCES Maquina(Cod_ma));
+                               CONSTRAINT Cod_pr_ProyectosMaquina_fk FOREIGN KEY(Cod_pr) REFERENCES Proyectos(Cod_pr) ON DELETE SET NULL,
+                               CONSTRAINT Cod_ma_ProyectosMaquina_fk FOREIGN KEY(Cod_ma) REFERENCES Maquina(Cod_ma) ON DELETE SET NULL);
 CREATE TABLE ProyectosUsuarios (Cod_pr number(5),
                                 ID_Soci number(5),
                                 CONSTRAINT ProyectosUsuarios_pk PRIMARY KEY (Cod_pr, ID_Soci),
-                                CONSTRAINT Cod_pr_ProyectosUsuarios_fk FOREIGN KEY(Cod_pr) REFERENCES Proyectos(Cod_pr),
-                                CONSTRAINT ID_Soci_ProyectosUsuarios_fk FOREIGN KEY(ID_Soci) REFERENCES Usuarios(ID_Soci));
+                                CONSTRAINT Cod_pr_ProyectosUsuarios_fk FOREIGN KEY(Cod_pr) REFERENCES Proyectos(Cod_pr) ON DELETE SET NULL,
+                                CONSTRAINT ID_Soci_ProyectosUsuarios_fk FOREIGN KEY(ID_Soci) REFERENCES Usuarios(ID_Soci) ON DELETE SET NULL);
 CREATE TABLE UsuariosEventos (ID_Soci number(5),
                               Cod_ev number(5),
                               CONSTRAINT UsuariosEventos_pk PRIMARY KEY (ID_Soci, Cod_ev),
-                              CONSTRAINT ID_Soci_UsuariosEventos_fk FOREIGN KEY(ID_Soci) REFERENCES Usuarios(ID_Soci),
+                              CONSTRAINT ID_Soci_UsuariosEventos_fk FOREIGN KEY(ID_Soci) REFERENCES Usuarios(ID_Soci) ON DELETE SET NULL,
                               CONSTRAINT Cod_ev_UsuariosEventos_fk FOREIGN KEY(Cod_ev) REFERENCES Eventos(Cod_ev) ON DELETE CASCADE);
 
 INSERT INTO Proveedor VALUES ('G3397769E', 'CADIELSA', 'illosummo-6060@hotmail.com', '608342057', 'Av. Zumalakarregi, 94', '37795', 'Repuesto de piezas móviles');
