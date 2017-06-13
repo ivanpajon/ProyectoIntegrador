@@ -77,5 +77,7 @@ public class VInicio extends JFrame {
 		btnMaquina.addActionListener(c);
 		btnProyectos.addActionListener(c);
 		btnMaterial.addActionListener(c);
+		btnPedidos.addActionListener(c);
+		btnUsuarios.addActionListener(c);
 	}
 }
