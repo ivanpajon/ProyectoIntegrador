@@ -14,6 +14,7 @@ public class GMaterial {
 	public GMaterial(Connection cn) {
 		this.conexion = cn;
 	}
+	
 	public int cargarArrayMaterial(ArrayList<Material> array) {
 		
 		try{
