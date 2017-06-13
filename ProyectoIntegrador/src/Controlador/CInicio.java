@@ -7,9 +7,11 @@ import Vista.VEventos;
 import Vista.VInicio;
 import Vista.VMaquina;
 import Vista.VMaterial;
+import Vista.VPedidos;
 import Vista.VProveedor;
 import Vista.VProyectos;
 import Vista.VReservas;
+import Vista.VUsuarios;
 
 public class CInicio implements ActionListener {
 	VInicio vInicio;
@@ -41,6 +43,28 @@ public class CInicio implements ActionListener {
 		else if (obj == vInicio.btnMaterial) {
 			abrirMateriales();
 		}
+		else if (obj == vInicio.btnPedidos) {
+			abrirPedidos();
+		}
+		else if (obj == vInicio.btnUsuarios) {
+			abrirUsuarios();
+		}
+	}
+
+	private void abrirUsuarios() {
+		VUsuarios vUsuarios = new VUsuarios();
+		CUsuarios cUsuarios = new CUsuarios(vUsuarios, bbdd);
+		
+		vUsuarios.setControlador(cUsuarios);
+		vUsuarios.setVisible(true);
+	}
+
+	private void abrirPedidos() {
+		VPedidos vPedidos = new VPedidos();
+		CPedidos cPedidos = new CPedidos(vPedidos, bbdd);
+		
+		vPedidos.setControlador(cPedidos);
+		vPedidos.setVisible(true);
 	}
 
 	private void abrirMateriales() {
