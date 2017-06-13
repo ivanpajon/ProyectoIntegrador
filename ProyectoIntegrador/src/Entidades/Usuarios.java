@@ -1,68 +1,77 @@
 package Entidades;
 
 public class Usuarios {
-	private String id_soci;
-	private String nombre;
-	private String apell;
-	private String correo;
-	private String tfno;
-	private String tipo_us;
+	private int ID_Socio;
+	private String Nombre;
+	private String Apellido;
+	private String Correo;
+	private int TLFN;
+	private String Tipo;
 	
-	public Usuarios(String id_soci, String nombre, String apell, String correo, String tfno, String tipo_us) {
-		super();
-		this.id_soci = id_soci;
-		this.nombre = nombre;
-		this.apell = apell;
-		this.correo = correo;
-		this.tfno = tfno;
-		this.tipo_us = tipo_us;
+	public Usuarios(int iD_Socio, String nombre, String apellido, String correo, int tLFN, String tipo) {
+		this.ID_Socio = iD_Socio;
+		this.Nombre = nombre;
+		this.Apellido = apellido;
+		this.Correo = correo;
+		this.TLFN = tLFN;
+		this.Tipo = tipo;
 	}
 
-	public String getId_soci() {
-		return id_soci;
-	}
 
-	public void setId_soci(String id_soci) {
-		this.id_soci = id_soci;
+	public Usuarios() {
+		this.ID_Socio = 0;
+		this.Nombre = "";
+		this.Apellido = "";
+		this.Correo = "";
+		this.TLFN = 0;
+		this.Tipo = "";
 	}
-
+	
+	public int getID_Socio() {
+		return ID_Socio;
+	}
+	
+	public void setID_Socio(int iD_Socio) {
+		ID_Socio = iD_Socio;
+	}
+	
 	public String getNombre() {
-		return nombre;
+		return Nombre;
 	}
-
+	
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		Nombre = nombre;
 	}
-
-	public String getApell() {
-		return apell;
+	
+	public String getApellido() {
+		return Apellido;
 	}
-
-	public void setApell(String apell) {
-		this.apell = apell;
+	
+	public void setApellido(String apellido) {
+		Apellido = apellido;
 	}
-
+	
 	public String getCorreo() {
-		return correo;
+		return Correo;
 	}
-
+	
 	public void setCorreo(String correo) {
-		this.correo = correo;
+		Correo = correo;
 	}
-
-	public String getTfno() {
-		return tfno;
+	
+	public int getTLFN() {
+		return TLFN;
 	}
-
-	public void setTfno(String tfno) {
-		this.tfno = tfno;
+	
+	public void setTLFN(int tLFN) {
+		TLFN = tLFN;
 	}
-
-	public String getTipo_us() {
-		return tipo_us;
+	
+	public String getTipo() {
+		return Tipo;
 	}
-
-	public void setTipo_us(String tipo_us) {
-		this.tipo_us = tipo_us;
+	
+	public void setTipo(String tipo) {
+		Tipo = tipo;
 	}
 }
