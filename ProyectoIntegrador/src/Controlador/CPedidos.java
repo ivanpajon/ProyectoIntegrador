@@ -72,9 +72,6 @@ public class CPedidos implements ActionListener, MouseListener {
 		else if(obj == Vp.btnModificar){
 			modificar();
 		}
-		else if(obj == Vp.btnBuscar){
-			Buscar();
-		}
 		else if(obj == Vp.btnSalir){
 			conexionBBDD.cerrarBBDD();
 			System.exit(0);  // Para evitar que intentes abrir otra ventana, ya que la conexion BBDD se cerro
@@ -96,8 +93,6 @@ public class CPedidos implements ActionListener, MouseListener {
 				(DefaultTableModel) Vp.table.getModel();
 		Pedidos p = new Pedidos();
 		p.setCod_pd(Integer.parseInt(Vp.textFieldCodigo.getText()));
-		//Vp.dateChooser.setDate(Vp.dateChooser());
-		//p.setFecha(Vp.dateChooser);//ERROR PREGUNTAR JAIRO
 		Vp.dateChooser.setDate(p.getFecha());
 		p.setTot_importe((Float.parseFloat(Vp.textFieldImporte.getText())));
 		p.setCif(Vp.textFieldCif.getText());
@@ -110,10 +105,6 @@ public class CPedidos implements ActionListener, MouseListener {
 		
 		gPedidos.modificarPedido(p);
 		limpiarCampos();
-		/*Vp.textFieldCodigo.setText("");
-		//Vp.JDatachosserFecha.setText("");;
-		Vp.textFieldImporte.setText("");
-		Vp.textFieldCif.setText("");*/
 		Vp.btnModificar.setVisible(false);
 		}
 	}
@@ -160,60 +151,15 @@ public class CPedidos implements ActionListener, MouseListener {
 		pedid.add(Ped);
 		DefaultTableModel tablaModelo = (DefaultTableModel) Vp.table.getModel();
 			tablaModelo.addRow(new Object[]{
-							/*Ped.get(Pedido.size()-1).getCod_pd(),
-							Ped.get(Pedido.size()-1).getFecha(),
-							Ped.get(Pedido.size()-1).getTot_importe(),
-							Ped.get(Pedido.size()-1).getCif(),*/
 							Ped.getCod_pd(),
 							Ped.getFecha(),
 							Ped.getTot_importe(),
-							Ped.getCif()
-							/*prove.getNombre(),
-							prov.getCorreo(),
-							prov.getTlfn(),
-							prov.getDireccion(),
-							prov.getCPostal(),
-							prov.getDescripccion() */});
-		
+							Ped.getCif()});
 				limpiarCampos();
 				gPedidos.insertarPedido(Ped);
-		Vp.lblAviso.setVisible(false);
+				Vp.lblAviso.setVisible(false);
 				}
 			}
-	
-	
-		
-		
-		
-		
-	private void Buscar() {
-		Pedidos Ped = new Pedidos();
-		ArrayList <Pedidos> array = new ArrayList<Pedidos>();
-		gPedidos.BuscarPedido(Integer.parseInt(Vp.textFieldBuscar.getText()), array);
-		Vp.textFieldCodigo.setText(""+Ped.getCod_pd());
-		Vp.dateChooser.setDate(Ped.getFecha());
-		//Vp.textFieldImporte.setText(Float.parseFloat(Vp.textFieldImporte.getText())); PREGUNTAR A JAIRO
-		Vp.textFieldCif.setText(Ped.getCif());
-		
-		Limpiar_Tabla();
-		pedid = array;
-		rellenarTabla();
-	}
-	
-	/*
-	public void filtro() {
-        int columnaABuscar = 0;
-        if (ComboBox.getSelectedItem() == "Codigo") {
-            columnaABuscar = 0;
-        }
-        if (ComboBox.getSelectedItem().toString() == "Cif") {
-            columnaABuscar = 4;
-        }
-       
-        trsFiltro.setRowFilter(RowFilter.regexFilter(textFieldBuscar.getText(), columnaABuscar));
-    }
-		
-*/
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
