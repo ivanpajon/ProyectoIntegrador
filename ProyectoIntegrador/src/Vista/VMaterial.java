@@ -15,6 +15,10 @@ import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
+import javax.swing.SwingConstants;
 
 public class VMaterial extends JFrame{
 
@@ -38,12 +42,18 @@ public class VMaterial extends JFrame{
 
 	
 	public VMaterial() {
+		setTitle("Materiales");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 741, 504);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation(pantalla.width/3, pantalla.height/5);
+		//System.out.println("Ancho - " + pantalla.width/3);
+		//System.out.println("Alto - " + pantalla.height/5);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 194, 699, 208);
@@ -116,7 +126,7 @@ public class VMaterial extends JFrame{
 		contentPane.add(lblStock);
 		
 		spinner = new JSpinner();
-		spinner.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1))); //PREGUNTAR JAIRO
+		spinner.setModel(new SpinnerNumberModel(new Integer(0), null, null, new Integer(1)));
 		spinner.setBounds(443, 64, 178, 22);
 		contentPane.add(spinner);
 		
@@ -125,6 +135,7 @@ public class VMaterial extends JFrame{
 		contentPane.add(btnPedirMaterial);
 		
 		lblAviso = new JLabel("");
+		lblAviso.setHorizontalAlignment(SwingConstants.CENTER);
 		lblAviso.setForeground(Color.RED);
 		lblAviso.setBounds(12, 139, 699, 48);
 		contentPane.add(lblAviso);
