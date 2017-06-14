@@ -1,14 +1,12 @@
 package Entidades;
 
-import java.util.Date;
-
 public class Pedidos {
 	private int cod_pd;
-	private Date Fecha;
+	private String Fecha;
 	private float Tot_importe;
 	private String Cif;
 	
-	public Pedidos(int cod_pd, Date fecha, float tot_importe, String cif) {
+	public Pedidos(int cod_pd, String fecha, float tot_importe, String cif) {
 		this.cod_pd = cod_pd;
 		this.Fecha = fecha;
 		this.Tot_importe = tot_importe;
@@ -17,7 +15,7 @@ public class Pedidos {
 	
 	public Pedidos() {
 		this.cod_pd = 0;
-		this.Fecha = new Date();
+		this.Fecha = "";
 		this.Tot_importe = 0;
 		this.Cif = "";
 	}
@@ -30,11 +28,15 @@ public class Pedidos {
 		this.cod_pd = cod_pd;
 	}
 	
-	public Date getFecha() {
+	public String getFecha() {
 		return Fecha;
 	}
 	
-	public void setFecha(Date fecha) {
+	public String getFechaFormatted() {
+		return Fecha.substring(0, Fecha.indexOf(' '));
+	}
+	
+	public void setFecha(String fecha) {
 		Fecha = fecha;
 	}
 	
