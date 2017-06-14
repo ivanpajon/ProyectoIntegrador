@@ -96,43 +96,4 @@ public class GPedidos {
 			e4.printStackTrace();
 		}
 	}
-	/*
-	private void Buscar(String texto) {
-		// TODO Auto-generated method stub
-		Statement stmt;
-		try{
-			stmt = conexion.createStatement();
-			String [] titulos={"Cod_Pedido", "Fecha", "Importe/€", "CIF/DNI"};
-			 String cadSQL="SELECT * FROM PEDIDOS WHERE COD_PD LIKE '%"+texto+"_%'";
-			 System.out.println(cadSQL);
-			 stmt.executeUpdate(cadSQL);
-		}
-		catch(SQLException e5){
-			e5.printStackTrace();
-		}
-	}*/
-	
-	public void BuscarPedido(int cod, ArrayList<Pedidos> array){
-		Statement stmt;
-		try{
-			stmt = conexion.createStatement();
-			String cadSQL = "SELECT COD_PD, FECHA, TOT_IMPORTE, CIF FROM PEDIDOS WHERE COD_PD="+cod;
-			ResultSet rset = stmt.executeQuery(cadSQL);
-			while(rset.next()){
-				Pedidos pd = new Pedidos();
-				pd.setCod_pd(rset.getInt(1));
-				pd.setFecha(rset.getDate(2));
-				pd.setTot_importe(rset.getInt(3));
-				pd.setCif(rset.getString(4));
-				
-				array.add(pd);
-				
-			}
-			rset.close();
-			stmt.close();
-		}
-		catch(SQLException e6){
-			e6.printStackTrace();
-		}
-	}
 }
