@@ -159,13 +159,9 @@ public class CMaterial implements ActionListener, MouseListener {
 				Mat.setStock((int)vM.spinner.getValue());
 				
 				DefaultTableModel tablaModelo = (DefaultTableModel) vM.table.getModel();
-					tablaModelo.addRow(new Object[]{
-									Mat.getCod_mt(),
-									Mat.getNombre(),
-									Mat.getDescripccion(),
-									Mat.getTipo(),
-									Mat.getStock()
-									});
+				tablaModelo.addRow(new Object[]{Mat.getCod_mt(), Mat.getNombre(), Mat.getDescripccion(), Mat.getTipo(), Mat.getStock()});
+				
+				material.add(Mat);
 				
 				limpiarCampos();
 				gMaterial.InsertaMaterial(Mat);
