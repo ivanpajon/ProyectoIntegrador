@@ -16,7 +16,6 @@ public class GPedidos {
 	}
 	
 	public void cargarArrayListPedido(ArrayList<Pedidos> array) {
-		// TODO Auto-generated method stub
 		try{
 			Statement stmt = conexion.createStatement();
 			ResultSet rset = stmt.executeQuery(
@@ -24,7 +23,7 @@ public class GPedidos {
 			while(rset.next()){
 				Pedidos pd = new Pedidos();
 				pd.setCod_pd(rset.getInt(1));
-				pd.setFecha(rset.getDate(2));
+				pd.setFecha(rset.getString(2));
 				pd.setTot_importe(rset.getInt(3));
 				pd.setCif(rset.getString(4));
 				
@@ -41,12 +40,12 @@ public class GPedidos {
 		Statement stmt;
 		try{
 			stmt = conexion.createStatement();
-			String cadSQL = "INSERT INTO PEDIDOS VALUES ('"+p.getCod_pd()+"','"+p.getFecha()+"', '"+p.getTot_importe()+"', '"+p.getCif()+"')";
-			System.out.println(cadSQL);
+			String cadSQL = "INSERT INTO PEDIDOS VALUES ('"+p.getCod_pd()+"',TO_DATE('"+p.getFecha()+"', 'YY-MM-DD'), "+p.getTot_importe()+", '"+p.getCif()+"')";
+			//System.out.println(cadSQL);
 			stmt.executeUpdate(cadSQL);
 			stmt.close();
 		} catch(SQLException e1){
-			e1.printStackTrace();
+			System.out.println(e1);
 		}
 	}
 	
@@ -73,7 +72,7 @@ public class GPedidos {
 		try{
 			stmt = conexion.createStatement();
 			String cadSQL = "DELETE FROM PEDIDOS WHERE COD_PD = '"+Cod+"'";
-			System.out.println(cadSQL);
+			//System.out.println(cadSQL);
 			stmt.executeUpdate(cadSQL);
 			stmt.close();
 		} catch(SQLException e3){
@@ -85,12 +84,9 @@ public class GPedidos {
 		Statement stmt;
 		try{
 			stmt = conexion.createStatement();
-			String total=p.getTot_importe()+"";
-			System.out.println(total.replace(".", ","));
-			String cadSQL = "UPDATE PEDIDOS SET COD_PD ="+p.getCod_pd()+", FECHA="+p.getFecha()+",TOT_IMPORTE= "+p.getTot_importe()+" where COD_PD='"+p.getCod_pd()+"'";
-			//String cadSQL = "UPDATE PEDIDOS SET COD_PD ='"+p.getCod_pd()+"', FECHA='"+p.getFecha()+"',TOT_IMPORTE= '"+total.replace(".", ",")+"' where CIF='"+p.getCif()+"'";
+			String cadSQL = "UPDATE PEDIDOS SET COD_PD ="+p.getCod_pd()+", FECHA=TO_DATE('"+p.getFecha()+"', 'YY-MM-DD'),TOT_IMPORTE= "+p.getTot_importe()+" where COD_PD='"+p.getCod_pd()+"'";
 
-			System.out.println(cadSQL);
+			//System.out.println(cadSQL);
 			stmt.executeQuery(cadSQL);
 		}catch (SQLException e4){
 			e4.printStackTrace();
