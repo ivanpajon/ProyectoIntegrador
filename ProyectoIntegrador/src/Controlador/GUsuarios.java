@@ -33,7 +33,7 @@ public class GUsuarios {
 			rset.close();
 			stmt.close();
 		} catch(SQLException s){
-			s.printStackTrace();
+			System.out.println(s);
 		}
 	}
 	public void modificarUsu(Usuarios u) {
@@ -44,7 +44,7 @@ public class GUsuarios {
 			System.out.println(cadSQL);
 			stmt.executeQuery(cadSQL);
 		}catch (SQLException s){
-			s.printStackTrace();
+			System.out.println(s);
 		}
 	}	
 	
@@ -57,11 +57,11 @@ public class GUsuarios {
 			stmt.executeUpdate(cadSQL);
 			stmt.close();
 		} catch(SQLException e1){
-			e1.printStackTrace();
+			System.out.println(e1);
 		}
 	}
 	
-	public void insertarUsu(Usuarios Usuar) {
+	public boolean insertarUsu(Usuarios Usuar) {
 		Statement stmt;
 		try{
 			stmt = conexion.createStatement();
@@ -69,8 +69,11 @@ public class GUsuarios {
 			System.out.println(cadSQL);
 			stmt.executeUpdate(cadSQL);
 			stmt.close();
+			
+			return true;
 		} catch(SQLException e1){
-			e1.printStackTrace();
+			System.out.println(e1);
+			return false;
 		}
 	}
 	
@@ -86,7 +89,7 @@ public class GUsuarios {
 			rset.close();
 			stmt.close();
 		}catch(SQLException cd){
-			cd.printStackTrace();
+			System.out.println(cd);
 		}
 		return comprobar;
 	}
