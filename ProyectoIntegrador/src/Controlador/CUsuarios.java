@@ -59,35 +59,17 @@ public class CUsuarios implements ActionListener, MouseListener {
 		if (obj == vU.btnInsertar ){
 			insertarUsu();
 			Limpiar_Tabla();
-			//obj=conexionBBDD.cargarArrayMaterial(material);
-			//vM.textFieldCodigo.setText(""+obj);
 			rellenarTabla();  // Metodo de aqui para rellenar la tabla despues de añadir y limpiar
 		}else if(obj == vU.btnBorrar){
 			Borrar();
 			Limpiar_Tabla();
-			//obj=conexionBBDD.cargarArrayMaterial(material);
-			//vM.textFieldCodigo.setText(""+obj);
 			rellenarTabla();
 		}else if(obj == vU.btnModificar){
 			modificar();
 			Limpiar_Tabla();
-			//obj=conexionBBDD.cargarArrayMaterial(material);
-			//vM.textFieldCodigo.setText(""+obj);
 			rellenarTabla();
-		}/*else if(obj == vU.btnBuscar){
-			Buscar();
-		}else if(obj == vU.btnPedirMaterial){
-			//PedirMaterial();
-		}else if(obj == vU.btnMostrar){
-			limpiarCampos();
-			Limpiar_Tabla();
-			obj=conexionBBDD.cargarArrayListUsuarios(usuario);
-			vU.textFieldID.setText(""+obj);
-			rellenarTabla();
-		}else if(obj == vU.btnSalir){
-			vU.dispose();
-			conexionBBDD.cerrarBBDD();
-	*/}
+		}
+	}
 	
 	private void modificar() {
 		int fila= vU.table.getSelectedRow();
@@ -145,27 +127,32 @@ public class CUsuarios implements ActionListener, MouseListener {
 				vU.lblAviso.setVisible(true);
 			}
 			else {
-				Usu.setID_Socio(Integer.parseInt(vU.textFieldID.getText()));	
-				Usu.setNombre(vU.textFieldNombre.getText());
-				Usu.setApellido(vU.textFieldApellido.getText());
-				Usu.setCorreo(vU.textFieldCorreo.getText());
-				Usu.setTLFN(Integer.parseInt(vU.textFieldTFNO.getText()));
-				Usu.setTipo(vU.textFieldTipo.getText());
-				
-				usuarios.add(Usu);
-				DefaultTableModel tablaModelo = (DefaultTableModel) vU.table.getModel();
-					tablaModelo.addRow(new Object[]{
-									Usu.getID_Socio(),
-									Usu.getNombre(),
-									Usu.getApellido(),
-									Usu.getCorreo(),
-									Usu.getTLFN(),
-									Usu.getTipo(),
-									});
-				
-				limpiarCampos();
-				gUsuarios.insertarUsu(Usu);
-				vU.lblAviso.setVisible(false);
+				try {
+					Usu.setID_Socio(Integer.parseInt(vU.textFieldID.getText()));	
+					Usu.setNombre(vU.textFieldNombre.getText());
+					Usu.setApellido(vU.textFieldApellido.getText());
+					Usu.setCorreo(vU.textFieldCorreo.getText());
+					Usu.setTLFN(Integer.parseInt(vU.textFieldTFNO.getText()));
+					Usu.setTipo(vU.textFieldTipo.getText());
+					
+					if (gUsuarios.insertarUsu(Usu)) {
+						usuarios.add(Usu);
+						DefaultTableModel tablaModelo = (DefaultTableModel) vU.table.getModel();
+						tablaModelo.addRow(new Object[]{Usu.getID_Socio(), Usu.getNombre(),	Usu.getApellido(), Usu.getCorreo(),	Usu.getTLFN(), Usu.getTipo()});
+						
+						limpiarCampos();
+						
+						vU.lblAviso.setVisible(false);
+					}
+					else {
+						vU.lblAviso.setVisible(true);
+						vU.lblAviso.setText("No se pudo añadir el usuario");
+					}
+					
+				}
+				catch(NumberFormatException e) {
+					vU.lblAviso.setText("Los campos ID y Telefono deben ser numéricos");
+				}
 			}
 		}
 		catch(IndexOutOfBoundsException e){
@@ -173,22 +160,7 @@ public class CUsuarios implements ActionListener, MouseListener {
 		}
 	
 	}
-		/*
-		private void Buscar() {
-			Material Mat = new Material();
-			ArrayList <Material> array = new ArrayList<Material>();
-			conexionBBDD.BuscarMaterial(Integer.parseInt(vM.textFieldBuscar.getText()), array);
-			vM.textFieldCodigo.setText(""+Mat.getCod_mt());
-			vM.textFieldNombre.setText(Mat.getNombre());
-			vM.textFieldDescripccion.setText(Mat.getDescripccion());
-			vM.textFieldTipo.setText(Mat.getTipo());
-			vM.spinner.setValue(Mat.getStock());
-			
-			Limpiar_Tabla();
-			material = array;
-			rellenarTabla();
-		}*/
-		
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {  //Metodo para clicar el dato de la tabla y visualizarlo en los campos de texto
 		Object obj = e.getSource();
