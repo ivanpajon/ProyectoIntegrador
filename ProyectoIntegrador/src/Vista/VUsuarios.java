@@ -1,7 +1,6 @@
 package Vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Dimension;
 
 public class VUsuarios extends JFrame {
 
@@ -34,12 +34,18 @@ public class VUsuarios extends JFrame {
 
 
 	public VUsuarios() {
+		setTitle("Usuarios");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 668, 558);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation(pantalla.width/3, pantalla.height/5);
+		//System.out.println("Ancho - " + pantalla.width/3);
+		//System.out.println("Alto - " + pantalla.height/5);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 247, 626, 251);
