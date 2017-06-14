@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -35,18 +36,14 @@ public class CPedidos implements ActionListener, MouseListener {
 	} 
 	
 	public void rellenarTabla() {
-		DefaultTableModel tablaModelo = 
-				(DefaultTableModel) Vp.table.getModel();
+		DefaultTableModel tablaModelo = (DefaultTableModel) Vp.table.getModel();
 		for (Pedidos p : pedid){
-			tablaModelo.addRow(new Object[]
-				{p.getCod_pd(), p.getFecha(), p.getTot_importe(),p.getCif()});
+			tablaModelo.addRow(new Object[]{p.getCod_pd(), p.getFechaFormatted(), p.getTot_importe(),p.getCif()});
 		}
 	}
 	
 	public void limpiarCampos(){
 		Vp.textFieldCodigo.setText("");
-		//Vp.Fecha.setText("");
-		//Vp.dateChooser.setDate("");
 		Vp.textFieldImporte.setText("");
 		Vp.textFieldCif.setText("");
 	}
@@ -63,8 +60,6 @@ public class CPedidos implements ActionListener, MouseListener {
 		Object obj = e.getSource();
 		if (obj == Vp.btnAñadir ){
 			Añadir();
-			Limpiar_Tabla();
-			rellenarTabla();
 		}
 		else if(obj == Vp.btnBorrar){
 			Borrar();
@@ -85,18 +80,18 @@ public class CPedidos implements ActionListener, MouseListener {
 			Vp.lblAviso.setText("Seleccione una Fecha correcta");
 		}
 		else {
-			String fecha = Vp.dateChooser.getJCalendar().getYearChooser().getYear() + "-" +
-			              (Vp.dateChooser.getJCalendar().getMonthChooser().getMonth()+1) + "-" +
-			              Vp.dateChooser.getJCalendar().getDayChooser().getDay();
+		String fecha = Vp.dateChooser.getJCalendar().getYearChooser().getYear() + "-" +
+		              (Vp.dateChooser.getJCalendar().getMonthChooser().getMonth()+1) + "-" +
+		              Vp.dateChooser.getJCalendar().getDayChooser().getDay();
 		int fila= Vp.table.getSelectedRow();
 		DefaultTableModel table=
 				(DefaultTableModel) Vp.table.getModel();
 		Pedidos p = new Pedidos();
 		p.setCod_pd(Integer.parseInt(Vp.textFieldCodigo.getText()));
-		Vp.dateChooser.setDate(p.getFecha());
+		p.setFecha(fecha);
 		p.setTot_importe((Float.parseFloat(Vp.textFieldImporte.getText())));
 		p.setCif(Vp.textFieldCif.getText());
-		pedid.set( fila, p);
+		pedid.set(fila, p);
 		
 		table.setValueAt(p.getCod_pd(), fila, 0);
 		table.setValueAt(fecha, fila, 1);	
@@ -127,39 +122,33 @@ public class CPedidos implements ActionListener, MouseListener {
 		if(Vp.textFieldCif.getText().equals("")){
 			Vp.lblAviso.setText("El DNI/CIF no puede estar Vacio");
 			Vp.lblAviso.setVisible(true);
-		}else if(gPedidos.comprobar_DNI_CIF(Vp.textFieldCif.getText())){
-			Vp.lblAviso.setText("El DNI/CIF ya existe en la BBDD");
+		}
+		else if(!gPedidos.comprobar_DNI_CIF(Vp.textFieldCif.getText())){
+			Vp.lblAviso.setText("El DNI/CIF no existe en la BBDD");
 			Vp.lblAviso.setVisible(true);
-		}else{
-		Ped.setCif(Vp.textFieldCif.getText());
-		if(Vp.textFieldCodigo.getText().equals("")){
+		}
+		else if(Vp.textFieldCodigo.getText().equals("")){
 			Vp.lblAviso.setText("El Codigo no puede estar Vacio");
 			Vp.lblAviso.setVisible(true);
-		}else{
-			try {
-				DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-				Date today = new Date();
-				System.out.println(dateFormat.format(today));
-				Vp.dateChooser.setDate(today);
-			}
-			catch (Exception ex) {
-				System.out.println("Error obteniendo fecha - " + ex);
-			}
 		}
-		
-		Ped.setTot_importe(Float.parseFloat(Vp.textFieldImporte.getText()));
-		pedid.add(Ped);
-		DefaultTableModel tablaModelo = (DefaultTableModel) Vp.table.getModel();
-			tablaModelo.addRow(new Object[]{
-							Ped.getCod_pd(),
-							Ped.getFecha(),
-							Ped.getTot_importe(),
-							Ped.getCif()});
-				limpiarCampos();
-				gPedidos.insertarPedido(Ped);
-				Vp.lblAviso.setVisible(false);
-				}
-			}
+		else{
+			String fecha = Vp.dateChooser.getJCalendar().getYearChooser().getYear() + "-" +
+		              (Vp.dateChooser.getJCalendar().getMonthChooser().getMonth()+1) + "-" +
+		              Vp.dateChooser.getJCalendar().getDayChooser().getDay();
+			
+			Ped.setFecha(fecha);
+			Ped.setCod_pd(Integer.parseInt(Vp.textFieldCodigo.getText()));
+			Ped.setTot_importe(Float.parseFloat(Vp.textFieldImporte.getText()));
+			Ped.setCif(Vp.textFieldCif.getText());
+			pedid.add(Ped);
+			DefaultTableModel tablaModelo = (DefaultTableModel) Vp.table.getModel();
+			tablaModelo.addRow(new Object[]{Ped.getCod_pd(), Ped.getFecha(), Ped.getTot_importe(), Ped.getCif()});
+			
+			gPedidos.insertarPedido(Ped);
+			Vp.lblAviso.setVisible(false);
+			limpiarCampos();
+		}
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -170,10 +159,18 @@ public class CPedidos implements ActionListener, MouseListener {
 			Pedidos p = new Pedidos();
 			p = pedid.get(fila);
 			Vp.textFieldCodigo.setText(""+p.getCod_pd());
-			Vp.dateChooser.setDate(p.getFecha());
 			Vp.textFieldImporte.setText(""+p.getTot_importe());
 			Vp.textFieldCif.setText(""+p.getCif());
 			Vp.btnModificar.setVisible(true);
+			
+			// Este try-catch pone las fechas de la fila seleccionada en sus dateChooser
+			try {
+				Date dateInicio = new SimpleDateFormat("yyyy-MM-dd").parse(pedid.get(fila).getFecha());
+				Vp.dateChooser.setDate(dateInicio);
+			}
+			catch (ParseException ex) {
+				System.out.println("Error obteniendo fecha - " + ex);
+			}
 		}
 	}
 
