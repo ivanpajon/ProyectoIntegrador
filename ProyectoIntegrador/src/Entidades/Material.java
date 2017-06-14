@@ -9,7 +9,6 @@ public class Material {
 	private String Descripccion;
 	private String Tipo;
 	private int Stock;
-	//private boolean disponible = false;
 	
 	
 	public Material(int cod_mt, Date fecha, String nombre, String descripccion, String tipo, int stock) {
@@ -20,13 +19,12 @@ public class Material {
 		Descripccion = descripccion;
 		Tipo = tipo;
 		Stock = stock;
-		//this.disponible = disponible;
 	}
 
 
 
 	public Material() {
-		super();
+		
 	}
 
 
@@ -88,18 +86,5 @@ public class Material {
 	public int getStock() {
 	    return this.Stock;
 	}
-	/*
-	public boolean isDisponible() {
-	    if(getStock(Stock)>0) this.disponible = true;
-	    return this.disponible;
-	  }
-	  public void setDisponible(boolean disponible) {
-	    this.disponible = disponible;
-	  }
-		*/  
-	
-	public static void add(Material m) {
-		// TODO Auto-generated method stub
-		
-	}
+	  
 }
